@@ -1,10 +1,12 @@
 import React from "react";
 import {Button} from "../Button";
+import {filterValuesType} from "../App";
 
 type TodoListProps = {
     title: string;
     tasks: Array<TaskType>;
-    date?: string;
+    removeTask: (taskId: number)=> void
+    changeFilter:(filter: filterValuesType)=> void
 }
 
 export type TaskType  = {
@@ -15,15 +17,16 @@ export type TaskType  = {
 
 
 
-export const TodoList = (props: TodoListProps) => {
+export const TodoList = ({title, tasks, removeTask, changeFilter}:TodoListProps) => {
 
-    const tasksList:Array<JSX.Element> | JSX.Element= props.tasks.length !== 0
+    const tasksList:Array<JSX.Element> | JSX.Element= tasks.length !== 0
     ?
-        props.tasks.map((task: TaskType) => {
+        tasks.map((task: TaskType) => {
         return (
             <li key = {task.id}>
                 < input type="checkbox" checked={task.isDone}/>
                 <span>{task.title}</span>
+                <Button title={"x"} callback={() => removeTask(task.id)}/>
             </li>
 
     )
@@ -32,7 +35,7 @@ export const TodoList = (props: TodoListProps) => {
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>{title}</h3>
             <div>
                 <input/>
                 <Button title = {"+"}/>
@@ -41,12 +44,12 @@ export const TodoList = (props: TodoListProps) => {
                 {tasksList}
             </ul>
             <div>
-                <Button title={"All"}/>
-                <Button title={"Active"}/>
-                <Button title={"Comleted"}/>
+                <Button title={"All"} callback={()=>changeFilter('all')}/>
+                <Button title={"Active"} callback={()=>changeFilter('active')}/>
+                <Button title={"Comleted"} callback={()=>changeFilter('completed')}/>
 
             </div>
-            <span>{props.date}</span>
+
         </div>
 
 )
