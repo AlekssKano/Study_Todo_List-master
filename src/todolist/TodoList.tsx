@@ -3,33 +3,45 @@ import {Button} from "../Button";
 import {filterValuesType} from "../App";
 
 type TodoListProps = {
+
+    todolistId: string;
     title: string;
     filter: filterValuesType
     tasks: Array<TaskType>;
-    removeTask: (taskId: string) => void
-    changeFilter: (filter: filterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, newStatus: boolean) => void
+    removeTodoList: (todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
+    changetoDolistFilter: (filter: filterValuesType, todolistId: string) => void
+    addTask: (title: string,  todolistId: string) => void
+    changeTaskStatus: (taskId: string, newStatus: boolean, todolistId: string) => void
 
 }
 
 export type TaskType = {
-    id: string
+id:string
     title: string
     isDone: boolean
 }
 
 
-export const TodoList = ({title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter}: TodoListProps) => {
+export const TodoList = ({
+                             removeTodoList,
+                             todolistId,
+                             title,
+                             tasks,
+                             removeTask,
+                             changetoDolistFilter,
+                             addTask,
+                             changeTaskStatus,
+                             filter}: TodoListProps) => {
 
     const tasksList: Array<JSX.Element> | JSX.Element = tasks.length !== 0
         ?
         tasks.map((task: TaskType) => {
             const onClickRemoveTaskHandler = () => {
-                removeTask(task.id)
+                removeTask(task.id, todolistId)
             }
             const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                changeTaskStatus(task.id, e.currentTarget.checked)
+                changeTaskStatus(task.id, e.currentTarget.checked, todolistId)
             }
             const tasksClasses: string = task.isDone ? "task-done" : "task"
             return (
@@ -54,7 +66,8 @@ export const TodoList = ({title, tasks, removeTask, changeFilter, addTask, chang
     const onClickAddTaskHandler = () => {
         const trimmedTitle = titleInputValue.trim()
         if(!isInputBtrDisabled && !userErrorMessage && trimmedTitle) {
-            addTask(titleInputValue)
+            addTask(trimmedTitle, todolistId)
+            // addTask(titleInputValue) было так, я исправила, проверь потом
        }
         else {
             setInputError(true)
@@ -71,7 +84,7 @@ export const TodoList = ({title, tasks, removeTask, changeFilter, addTask, chang
         setTitleInputValue(e.currentTarget.value)
     }
     const setFilterHandlerCreator = (newFilterValue: filterValuesType) => {
-        return () => changeFilter(newFilterValue)
+        return () => changetoDolistFilter(newFilterValue, todolistId)
     }
     const buttonsData = [
         {
@@ -103,7 +116,8 @@ export const TodoList = ({title, tasks, removeTask, changeFilter, addTask, chang
     })
     return (
         <div>
-            <h3>{title}</h3>
+            <h3>{title}
+            <button onClick={()=>{removeTodoList(todolistId)}} >x</button></h3>
             <div>
                 <input value={titleInputValue}
                        onChange={onChangeSetTitleInputValueHandler}
