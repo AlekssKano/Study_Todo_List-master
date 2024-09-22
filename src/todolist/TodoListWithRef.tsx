@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {Button} from "../Button";
+import {Button} from "../components/Button";
 import {filterValuesType} from "../App";
 
 type TodoListProps = {
