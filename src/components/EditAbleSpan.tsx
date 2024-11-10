@@ -1,13 +1,16 @@
 import React, {ChangeEvent, useState} from 'react';
+import {TextField} from "@mui/material";
 
 type EditAbleSpanProps = {
     title: string
     changeItemTitle:(newTitle:string) => void
+    classes?:string
 
 }
 export const EditAbleSpan = ({
                                  title,
-                                 changeItemTitle
+                                 changeItemTitle,
+    classes
                              }: EditAbleSpanProps) => {
     //state
     const [titleInputValue, setTitleInputValue] = useState<string>(title)
@@ -26,13 +29,16 @@ export const EditAbleSpan = ({
     }
     return (
         editMode
-            ? <input
+            ? <TextField
+            variant={'standard'}
                 value={titleInputValue}
                 autoFocus
                 onBlur={offEditMode}
                 onChange={onChangeSetTitleInputValueHandler}
             />
-            : <span onDoubleClick={onEditMode}>{title}</span>
+            : <span
+                className={classes}
+                onDoubleClick={onEditMode}>{title}</span>
 
     );
 };

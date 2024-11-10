@@ -3,6 +3,8 @@ import {Button} from "../components/Button";
 import {filterValuesType} from "../App";
 import TodolistHeader from "./TodolistHeader";
 import {TodolistBody} from "./TodolistBody";
+import {todolistSX} from "./Todolist.styles";
+import {Box} from "@mui/material";
 
 type TodoListProps = {
 
@@ -16,6 +18,8 @@ type TodoListProps = {
     addTask: (title: string, todolistId: string) => void
     changeTaskStatus: (taskId: string, newStatus: boolean, todolistId: string) => void
     changeTaskTitle:(taskId: string, newTitle: string, todilistId: string)=>void
+    changeTodolistTitle:(todolistId: string, newTitle: string) => void //change
+
 
 }
 
@@ -36,19 +40,26 @@ export const TodoList = ({
                              addTask,
                              changeTaskStatus,
                              filter,
-                             changeTaskTitle
+                             changeTaskTitle,
+                             changeTodolistTitle
                          }: TodoListProps) => {
     const [collapsed, setCollapsed] = useState(false)
 
+const setTodolistNewTitle =(newTitle: string) => {
+        changeTodolistTitle(newTitle, todolistId)
+}
+
     //JSX
     return (
-        <div>
+        <Box sx={todolistSX}>
 <TodolistHeader title={title}
                 isCollapsed={collapsed}
 
                 toggleTodolist={()=>setCollapsed(!collapsed)}
 
                 removeTodolist={()=>removeTodoList(todolistId)}
+                changeTodolistTitle={setTodolistNewTitle}
+
 
                 />
             {!collapsed &&
@@ -62,7 +73,7 @@ export const TodoList = ({
                               changeTaskTitle={changeTaskTitle}
                 />}
 
-            </div>
+            </Box>
 
     )
 }

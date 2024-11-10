@@ -1,22 +1,26 @@
-.App {
-  padding: 30px;
-  display: flex;
-  background-color: #2ad6d6;
-  border-radius: 10px;
-  border: 1px solid #0a6565;
-  margin-left: 15px;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*  !*background-color: #515151;*!*/
+/*  border-radius: 10px;*/
+/*  !*border: 1px solid #0a6565;*!*/
+/*  margin-left: 15px;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 .todolist{
-
+background-color: #9cd3d6;
+  border: 2px solid #0a6565;
+  border-radius: 5px;
+  padding: 15px;
+  height:100%;
 }
 .task{
   font-weight: bold;
 }
-.task-done{
+.task-done {
   opacity:0.5;
   text-decoration: line-through;
 }

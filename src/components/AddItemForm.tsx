@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button} from "./Button";
-
+import {Button, TextField} from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 type AddItemFormPropsType = {
     addItem:(title:string)=>void
     maxItemLength:number
@@ -44,17 +44,33 @@ const AddItemForm = ({addItem,
 
     return (
         <div>
-            <input value={titleInputValue}
-                   onChange={onChangeSetTitleInputValueHandler}
-                   onKeyDown={onKeyDownAddItemHandler}
-                   className={inputError ? 'input-error' : undefined}/>
-            <Button title={"+"}
+            <TextField
+                variant="outlined"
+                size="small"
+                value={titleInputValue}
+                onChange={onChangeSetTitleInputValueHandler}
+                onKeyDown={onKeyDownAddItemHandler}
+                error={inputError}
+                helperText={inputError &&'Title is required'}
+            />
+
+
+            {/*<input value={titleInputValue}*/}
+            {/*       onChange={onChangeSetTitleInputValueHandler}*/}
+            {/*       onKeyDown={onKeyDownAddItemHandler}*/}
+            {/*       className={inputError ? 'input-error' : undefined}/>*/}
+            <Button variant={'contained'}
+                    // size={"small"}
+                    color={"primary"}
+                    sx={{m:' 0 15px'}}
                     disabled={isInputBtrDisabled || userErrorMessage}
-                    onClickHandler={onClickAddItemHandler}/>
+                    onClick={onClickAddItemHandler}
+                    endIcon={<AddCircleOutlineIcon/>}
+            >add</Button>
             {isInputBtrDisabled && !inputError && <div>Max length task title is {maxItemLength} characters</div>}
             {!isInputBtrDisabled && !userErrorMessage && !inputError && <div>{userLengthMessage}</div>}
             {userErrorMessage && <div style={{color: "red"}}>Max length task title is too long</div>}
-            {inputError && <div style={{color: 'red'}}>Title is required</div>}
+            {/*{inputError && <div style={{color: 'red'}}>Title is required</div>}*/}
         </div>
     );
 };

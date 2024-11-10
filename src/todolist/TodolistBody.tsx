@@ -1,9 +1,18 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button} from "../components/Button";
+// import {Button} from "../components/Button";
 import {filterValuesType} from "../App";
 import {TaskType} from "./TodoList";
 import AddItemForm from "../components/AddItemForm";
 import {EditAbleSpan} from "../components/EditAbleSpan";
+import {Button, IconButton, List, ListItem} from "@mui/material";
+import DeletedIcon from '@mui/icons-material/Delete';
+import { Checkbox } from "@mui/material"; // Правильный импорт
+
+type ButtonFilterType= {
+    title: string
+    onClickHandler: ()=>void
+    color: 'secondary' | 'primary'
+}
 
 
 type TodolistBodyPropsType = {
@@ -42,50 +51,74 @@ export const TodolistBody = ({
             const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                 changeTaskStatus(task.id, e.currentTarget.checked, todolistId)
             }
+            // const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            //     changeTaskStatus(task.id, e.currentTarget.checked, todolistId)
+            // }
             const setTaskNewTitle=(newTitle: string) => {
                 changeTaskTitle(task.id, newTitle, todolistId)
             }
             const tasksClasses: string = task.isDone ? "task-done" : "task"
             return (
-                <li key={task.id}>
-                    < input onChange={onChangeTaskStatusHandler}
-                            type="checkbox"
-                            checked={task.isDone}/>
+                <ListItem key={task.id}
+                          disablePadding
+                          className={'task'}
+                          // divider={true}
+                          secondaryAction={
+                              <IconButton onClick={onClickRemoveTaskHandler}
+                                          size={'small'} >
+                                  <DeletedIcon/>
+                              </IconButton>
+                          }
+                >
+                    <Checkbox
+                        size="small"
+                        color={'primary'}
+                        onChange={onChangeTaskStatusHandler}
+                        checked={task.isDone}
+                    />
+                    {/*< input onChange={onChangeTaskStatusHandler}*/}
+                    {/*        type="checkbox"*/}
+                    {/*        checked={task.isDone}/>*/}
                     {/*<span className={tasksClasses}>{task.title}</span>*/}
-                    <EditAbleSpan title={task.title} changeItemTitle={setTaskNewTitle}/>
-                    <Button title={"x"} onClickHandler={onClickRemoveTaskHandler}/>
-                </li>
+                    <EditAbleSpan title={task.title} changeItemTitle={setTaskNewTitle} classes={task.isDone?"task-done" : "task"}/>
+                    {/*<Button title={"x"} onClickHandler={onClickRemoveTaskHandler}/>*/}
+
+                </ListItem>
 
             )
         })
         : <span>Your tasks list is empty</span>
 
 
-    const buttonsData = [
+    const buttonsData:ButtonFilterType[] = [
         {
             title: "All",
             onClickHandler: setFilterHandlerCreator('all'),
-            classes: filter === "all" ? 'filter-btn-active' : ''
-
+            color: filter === "all" ? 'secondary':'primary'
         },
         {
             title: "Active",
             onClickHandler: setFilterHandlerCreator('active'),
-            classes: filter === "active" ? 'filter-btn-active' : ''
+            color: filter === "active" ? 'secondary' : 'primary'
 
         },
         {
             title: "Comleted",
             onClickHandler: setFilterHandlerCreator('completed'),
-            classes: filter === "completed" ? 'filter-btn-active' : ''
+            color: filter === "completed" ? 'secondary' : 'primary'
 
         },
     ]
     const filterButtons: Array<JSX.Element> = buttonsData.map(btn => {
         return (
-            <Button title={btn.title}
-                    classes={btn.classes}
-                    onClickHandler={btn.onClickHandler}/>
+            <Button
+                size='small'
+                variant='contained'
+                disableElevation={true} //отключает тени у кнопки
+                    color={btn.color}
+                    onClick={btn.onClickHandler}>
+
+                {btn.title}</Button>
         )
     })
     //handler
@@ -97,9 +130,9 @@ export const TodolistBody = ({
     return (
         <div>
             <AddItemForm addItem={addNewTask} maxItemLength={9}/>
-            <ul>
+            <List >
                 {tasksList}
-            </ul>
+            </List>
             <div>{filterButtons}</div>
         </div>
     );
