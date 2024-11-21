@@ -16,9 +16,7 @@ import {
     Toolbar
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu'
-import Grid from "@mui/material/Grid2"
 import {amber, pink} from "@mui/material/colors";
-import {dark} from "@mui/material/styles/createPalette";
 
 export type filterValuesType = 'all' | 'active' | 'completed';
 
@@ -29,7 +27,7 @@ export type ToDolistType = {
 
 }
 
-type TasksStateType = {
+export type TasksStateType = {
     [todoListID: string]: Array<TaskType>
 }
 export {}
@@ -77,7 +75,6 @@ function App() {
                 {id: v1(), title: "Pasta", isDone: false},
             ]
         })
-
 
     //tasks
 
