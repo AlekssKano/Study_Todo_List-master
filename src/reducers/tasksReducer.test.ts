@@ -1,5 +1,5 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasksReducer'
-import { TasksStateType } from '../App'
+import { TasksStateType } from '../AppWithUseState'
 import {AddTodolistAC, RemoveTodolistAC} from "./todolistsReducer";
 import {v1} from "uuid";
 let startState:TasksStateType={}

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import './app/App.css';
 import {TaskType, TodoList} from "./todolist/TodoList";
 import {v1} from "uuid";
 import AddItemForm from "./components/AddItemForm";
@@ -32,7 +32,7 @@ export type TasksStateType = {
 }
 export {}
 
-function App() {
+function AppWithUseState() {
 
     //BLL Теперь тут
     const todoListID_1 = v1()
@@ -219,4 +219,4 @@ const theme= createTheme({
     )
 }
 
-export default App;
+export default AppWithUseState;
