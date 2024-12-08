@@ -1,6 +1,6 @@
 import React, {useRef, useState, KeyboardEvent, ChangeEvent} from "react";
 import {Button} from "../components/Button";
-import {filterValuesType} from "../App";
+import {filterValuesType} from "../AppWithUseState";
 import TodolistHeader from "./TodolistHeader";
 import {TodolistBody} from "./TodolistBody";
 import {todolistSX} from "./Todolist.styles";
@@ -63,7 +63,9 @@ const setTodolistNewTitle =(newTitle: string) => {
 
                 />
             {!collapsed &&
-                <TodolistBody tasks={tasks}
+                <TodolistBody
+                    tasks={tasks}
+                    key={todolistId} // была ошибка на недостачу ключа, исправила сама. уточнить
                               filter={filter}
                               todolistId={todolistId}
                               changetoDolistFilter={changetoDolistFilter}

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 // import {Button} from "../components/Button";
-import {filterValuesType} from "../App";
+import {filterValuesType} from "../AppWithUseState";
 import {TaskType} from "./TodoList";
 import AddItemForm from "../components/AddItemForm";
 import {EditAbleSpan} from "../components/EditAbleSpan";

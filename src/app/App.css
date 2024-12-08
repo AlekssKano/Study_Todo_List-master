@@ -1,4 +1,4 @@
-/*.App {*/
+/*.AppWithUseState {*/
 /*  padding: 30px;*/
 /*  display: flex;*/
 /*  !*background-color: #515151;*!*/
@@ -7,7 +7,7 @@
 /*  margin-left: 15px;*/
 /*}*/
 
-/*.App > div {*/
+/*.AppWithUseState > div {*/
 /*  margin-right: 50px;*/
 /*}*/
 .todolist{
