@@ -1,7 +1,7 @@
-import {filterValuesType, TasksStateType, ToDolistType} from "../AppWithUseState";
 import {v1} from "uuid";
-import {TaskType} from "../todolist/TodoList";
+import {TaskType} from "../features/todolists/ui/Todolists/Todolist/TodoList";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolistsReducer";
+import {TasksStateType} from "../app/App";
 
 const initialState: TasksStateType = {}
 type ActionType =

@@ -1,22 +1,12 @@
-import React, { useState} from 'react';
+import React  from 'react';
 import './App.css';
-import {TaskType, TodoList} from "../todolist/TodoList";
-import {v1} from "uuid";
-import AddItemForm from "../components/AddItemForm";
+import {TaskType} from "../features/todolists/ui/Todolists/Todolist/TodoList";
+
 import {
-    AppBar, Box,
-    Button,
-    Container,
-    createTheme,
     CssBaseline,
-    Grid2,
-    IconButton,
-    Paper, Switch,
     ThemeProvider,
-    Toolbar
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu'
-import {amber, pink} from "@mui/material/colors";
+
 import {
     AddTodolistAC,
     ChangeTodolistFilterAC,
@@ -28,10 +18,11 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksRed
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store";
 import {useAppDispatch, useAppSelector} from "./hooks";
-import {changeModeAC} from "./app_reducer";
+import {Todolists} from "../features/todolists/ui/Todolists/Todolists";
 import {getTheme} from "../common/theme";
-import {Header} from "../Header";
-import {Main} from "../Main";
+import {ThemeMode} from "./app_reducer";
+import {Header} from "../common/components/Header/Header";
+import {Main} from "./Main";
 
 export type filterValuesType = 'all' | 'active' | 'completed';
 
@@ -45,19 +36,16 @@ export type ToDolistType = {
 export type TasksStateType = {
     [todoListID: string]: Array<TaskType>
 }
-export type ThemeMode= 'dark'|'light'
 export {}
 
 function App() {
-
-
-
-    const changelightMode = useAppSelector(state =>state.app.themeMode);
+const themeMode = useSelector<RootState, ThemeMode>((state) => state.app?.themeMode);
+const theme = getTheme(themeMode)
 
     const todolists = useAppSelector((state)=>state.todolists)
 
 const dispatch = useAppDispatch();
-    const tasks = useAppSelector(state=>state.tasks)
+    // const tasks = useAppSelector(state=>state.tasks)
 
     //tasks
 
@@ -95,7 +83,6 @@ const dispatch = useAppDispatch();
     const changeTodolistTitle = (newTitle: string, todolistId: string) => {
         dispatch(ChangeTodolistTitleAC({title:newTitle, todolistId:todolistId}))
     }
-    const theme= getTheme(changelightMode)
 
     return (
         <ThemeProvider theme={theme}>

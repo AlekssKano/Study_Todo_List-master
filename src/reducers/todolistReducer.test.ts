@@ -6,8 +6,8 @@ import {
     todolistsReducer
 } from './todolistsReducer';
 import { v1 } from 'uuid'
-import { ToDolistType } from '../AppWithUseState'
 import {strict} from "node:assert";
+import {ToDolistType} from "../app/App";
 
 let todolistId1=v1()
 let todolistId2 = v1()

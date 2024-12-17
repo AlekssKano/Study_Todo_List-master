@@ -1,5 +1,5 @@
 import React from 'react';
-import {EditAbleSpan} from "../components/EditAbleSpan";
+import {EditAbleSpan} from "../common/components/EditAbleSpan/EditAbleSpan";
 import {IconButton, Switch} from "@mui/material";
 import DeletedIcon from '@mui/icons-material/Delete';
 import { Checkbox } from "@mui/material"; // Правильный импорт

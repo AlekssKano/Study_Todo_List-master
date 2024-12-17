@@ -2,10 +2,10 @@ import {AppBar, Box, Button, IconButton, Switch, Toolbar} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import {amber} from "@mui/material/colors";
-import {getTheme} from "./common/theme";
+import {getTheme} from "../../theme";
 import {useSelector} from "react-redux";
-import {useAppDispatch, useAppSelector} from "./app/hooks";
-import {changeModeAC} from "./app/app_reducer";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {changeModeAC} from "../../../app/app_reducer";
 
 export const Header=()=> {
     const themeMode=useAppSelector(state =>state.app.themeMode);
