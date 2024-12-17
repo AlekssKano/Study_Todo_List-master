@@ -28,10 +28,6 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksRed
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store";
 import {useAppDispatch, useAppSelector} from "./hooks";
-import {changeModeAC} from "./app_reducer";
-import {getTheme} from "../common/theme";
-import {Header} from "../Header";
-import {Main} from "../Main";
 
 export type filterValuesType = 'all' | 'active' | 'completed';
 
@@ -45,14 +41,11 @@ export type ToDolistType = {
 export type TasksStateType = {
     [todoListID: string]: Array<TaskType>
 }
-export type ThemeMode= 'dark'|'light'
 export {}
 
 function App() {
 
 
-
-    const changelightMode = useAppSelector(state =>state.app.themeMode);
 
     const todolists = useAppSelector((state)=>state.todolists)
 
@@ -95,14 +88,11 @@ const dispatch = useAppDispatch();
     const changeTodolistTitle = (newTitle: string, todolistId: string) => {
         dispatch(ChangeTodolistTitleAC({title:newTitle, todolistId:todolistId}))
     }
-    const theme= getTheme(changelightMode)
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
         <div className="App">
-            <Header/>
-            <Main/>
         </div>
         </ThemeProvider>
     )

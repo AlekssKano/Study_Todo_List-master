@@ -76,6 +76,21 @@ export const TodoList = ({
                     addTask={addTask}
                     changeTaskTitle={changeTaskTitle}
                 />
+<<<<<<< HEAD
+=======
+            {!collapsed &&
+                <TodolistBody
+                    tasks={tasks}
+                    key={todolistId} // была ошибка на недостачу ключа, исправила сама. уточнить
+                              filter={filter}
+                              todolistId={todolistId}
+                              changetoDolistFilter={changetoDolistFilter}
+                              removeTask={removeTask}
+                              changeTaskStatus={changeTaskStatus}
+                              addTask={addTask}
+                              changeTaskTitle={changeTaskTitle}
+                />}
+>>>>>>> origin/master
 
         </Box>
 
