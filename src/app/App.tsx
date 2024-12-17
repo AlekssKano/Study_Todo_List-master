@@ -28,6 +28,10 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksRed
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store";
 import {useAppDispatch, useAppSelector} from "./hooks";
+import {changeModeAC} from "./app_reducer";
+import {getTheme} from "../common/theme";
+import {Header} from "../Header";
+import {Main} from "../Main";
 
 export type filterValuesType = 'all' | 'active' | 'completed';
 
@@ -41,12 +45,14 @@ export type ToDolistType = {
 export type TasksStateType = {
     [todoListID: string]: Array<TaskType>
 }
+export type ThemeMode= 'dark'|'light'
 export {}
 
 function App() {
 
-    const [isLightMode, setIsLightMOde]=useState(true)
 
+
+    const changelightMode = useAppSelector(state =>state.app.themeMode);
 
     const todolists = useAppSelector((state)=>state.todolists)
 
@@ -85,79 +91,18 @@ const dispatch = useAppDispatch();
 
         dispatch(RemoveTodolistAC(todolistId))
     }
-    const addTodoList = (title: string) => {
 
-        dispatch(AddTodolistAC(title))
-    }
     const changeTodolistTitle = (newTitle: string, todolistId: string) => {
-
         dispatch(ChangeTodolistTitleAC({title:newTitle, todolistId:todolistId}))
     }
+    const theme= getTheme(changelightMode)
 
-    const todolistsComponents = todolists.map((tl: ToDolistType) => {
-        let filteredTasks: Array<TaskType> = tasks[tl.id]
-        if (tl.filter === 'active') {
-            filteredTasks = tasks[tl.id].filter(task => task.isDone === false)
-        }
-
-        if (tl.filter === 'completed') {
-            filteredTasks = tasks[tl.id].filter(task => task.isDone === true)
-        }
-        return (
-            <Grid2 key={tl.id}>
-            <Paper elevation={8}>
-                <TodoList
-                    key={tl.id}
-                    todolistId={tl.id}
-                    title={tl.title}
-                    tasks={filteredTasks}
-                    removeTask={removeTask}
-                    changetoDolistFilter={changeTodoListFilter}
-                    filter={tl.filter}
-                    addTask={addTask}
-                    changeTaskStatus={changeTaskStatus}
-                    removeTodoList={removeTodoList}
-                    changeTaskTitle={changeTaskTitle}
-                    changeTodolistTitle={changeTodolistTitle}
-                />
-            </Paper>
-            </Grid2>
-        )
-    })
-
-const theme= createTheme({
-    palette:{
-        primary:pink,
-        secondary: amber,
-        mode: isLightMode?'light':'dark'
-    }
-})
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
         <div className="App">
-            <AppBar position="static">
-                <Toolbar sx={{justifyContent: 'space-between'}}>
-                    <IconButton color="inherit">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Box>
-                        <Switch onChange={()=>setIsLightMOde(!isLightMode)}/>
-                        <Button color="inherit">Login</Button>
-                    </Box>
-
-                </Toolbar>
-            </AppBar>
-            <Container fixed>
-                <Grid2 container sx={{m:'15px', justifyContent: 'center'}}>
-                <AddItemForm
-                    addItem={addTodoList}
-                    maxItemLength={12}/>
-                </Grid2>
-                <Grid2 container spacing={4}>
-                {todolistsComponents}
-                </Grid2>
-            </Container>
+            <Header/>
+            <Main/>
         </div>
         </ThemeProvider>
     )

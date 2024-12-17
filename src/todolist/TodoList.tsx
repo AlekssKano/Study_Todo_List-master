@@ -5,6 +5,8 @@ import TodolistHeader from "./TodolistHeader";
 import {TodolistBody} from "./TodolistBody";
 import {todolistSX} from "./Todolist.styles";
 import {Box} from "@mui/material";
+import {TodolistTitle} from "../TodolistTitle";
+import {ToDolistType} from "../app/App";
 
 type TodoListProps = {
 
@@ -17,8 +19,9 @@ type TodoListProps = {
     changetoDolistFilter: (filter: filterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
     changeTaskStatus: (taskId: string, newStatus: boolean, todolistId: string) => void
-    changeTaskTitle:(taskId: string, newTitle: string, todilistId: string)=>void
-    changeTodolistTitle:(todolistId: string, newTitle: string) => void //change
+    changeTaskTitle: (taskId: string, newTitle: string, todilistId: string) => void
+    changeTodolistTitle: (todolistId: string, newTitle: string) => void //change
+    todolist: ToDolistType
 
 
 }
@@ -31,51 +34,50 @@ export type TaskType = {
 
 
 export const TodoList = ({
+                             todolist,
                              removeTodoList,
-                             todolistId,
-                             title,
                              tasks,
                              removeTask,
                              changetoDolistFilter,
                              addTask,
                              changeTaskStatus,
-                             filter,
                              changeTaskTitle,
                              changeTodolistTitle
                          }: TodoListProps) => {
-    const [collapsed, setCollapsed] = useState(false)
-
-const setTodolistNewTitle =(newTitle: string) => {
-        changeTodolistTitle(newTitle, todolistId)
-}
+    // const [collapsed, setCollapsed] = useState(false)
+    //
+    // const setTodolistNewTitle = (newTitle: string) => {
+    //     changeTodolistTitle(newTitle, todolistId)
+    // }
 
     //JSX
     return (
         <Box sx={todolistSX}>
-<TodolistHeader title={title}
-                isCollapsed={collapsed}
+            {/*<TodolistHeader title={title}*/}
+            {/*                isCollapsed={collapsed}*/}
 
-                toggleTodolist={()=>setCollapsed(!collapsed)}
+            {/*                toggleTodolist={()=>setCollapsed(!collapsed)}*/}
 
-                removeTodolist={()=>removeTodoList(todolistId)}
-                changeTodolistTitle={setTodolistNewTitle}
+            {/*                removeTodolist={()=>removeTodoList(todolistId)}*/}
+            {/*                changeTodolistTitle={setTodolistNewTitle}*/}
 
 
-                />
-            {!collapsed &&
+            {/*                />*/}
+            <TodolistTitle todolist={todolist}/>
+
                 <TodolistBody
                     tasks={tasks}
-                    key={todolistId} // была ошибка на недостачу ключа, исправила сама. уточнить
-                              filter={filter}
-                              todolistId={todolistId}
-                              changetoDolistFilter={changetoDolistFilter}
-                              removeTask={removeTask}
-                              changeTaskStatus={changeTaskStatus}
-                              addTask={addTask}
-                              changeTaskTitle={changeTaskTitle}
-                />}
+                    key={todolist.id} // была ошибка на недостачу ключ, исправила сама. уточнить
+                    filter={todolist.filter}
+                    todolistId={todolist.id}
+                    changetoDolistFilter={changetoDolistFilter}
+                    removeTask={removeTask}
+                    changeTaskStatus={changeTaskStatus}
+                    addTask={addTask}
+                    changeTaskTitle={changeTaskTitle}
+                />
 
-            </Box>
+        </Box>
 
     )
 }

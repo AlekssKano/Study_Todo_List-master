@@ -13,25 +13,18 @@ title: string,
 
 }
 const TodolistHeader = (props:TodolistHeaderPropsType) => {
-
-    return (
-        <h3>
-            <EditAbleSpan title={props.title} changeItemTitle={props.changeTodolistTitle}/>
-            <IconButton size={'small'}
-            onClick={props.removeTodolist}>
-            <DeletedIcon/>
-            </IconButton>
-            <Switch onChange={props.toggleTodolist}
-                    checked={props.isCollapsed}/>
-            {/*<Checkbox*/}
-            {/*    onChange={props.toggleTodolist}*/}
-            {/*    checked={props.isCollapsed}*/}
-            {/*/>*/}
-            {/*<input type='checkbox'*/}
-            {/*       onChange={props.toggleTodolist}*/}
-            {/*       checked={props.isCollapsed}/>*/}
-        </h3>
-    );
+//
+//     return (
+//         <h3>
+//             <EditAbleSpan title={props.title} changeItemTitle={props.changeTodolistTitle}/>
+//             <IconButton size={'small'}
+//             onClick={props.removeTodolist}>
+//             <DeletedIcon/>
+//             </IconButton>
+//             <Switch onChange={props.toggleTodolist}
+//                     checked={props.isCollapsed}/>
+//         </h3>
+//     );
 };
 
 export default TodolistHeader;
