@@ -5,6 +5,7 @@ import {EditAbleSpan} from "../common/components/EditAbleSpan/EditAbleSpan";
 import AddItemForm from "../common/components/AddItemForm/AddItemForm";
 import axios from "axios";
 import {Todolists} from "../features/todolists/ui/Todolists/Todolists";
+import {TaskStatus} from "../common/enums/TaskStatus";
 
 const token = '16203159-05af-4caa-b112-e1c3159d626d'
 const apiKey = '39d46fbc-6e06-4ed4-b36f-6088c630fe0d'
@@ -19,7 +20,7 @@ const config = {
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
-    const [tasks, setTasks] = useState<{ [key:string]: Task[]}>({})
+    const [tasks, setTasks] = useState<{ [key: string]: Task[] }>({})
 
     useEffect(() => {
         // get todolists
@@ -34,9 +35,10 @@ export const AppHttpRequests = () => {
                 todolists.forEach((tl) => {
                     axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${tl.id}/tasks`, config)
                         .then(res => {
-                            setTasks({...tasks, [tl.id]:res.data.items})
+                            setTasks(tasks=>({...tasks, [tl.id]: res.data.items}))
                         })
                 })
+
             })
     }, [])
 
@@ -65,10 +67,12 @@ export const AppHttpRequests = () => {
 
     const createTaskHandler = (title: string, todolistId: string) => {
         // create task
-        axios.post<Response<{ item: Task }>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`, {title}, config)
+        axios.post<Response<{
+            item: Task
+        }>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks`, {title}, config)
             .then(res => {
-                const newTask=res.data.data.item
-                setTasks({...tasks,[todolistId]:[newTask,...tasks[todolistId]]})
+                const newTask = res.data.data.item
+                setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
             })
     }
 
@@ -78,18 +82,21 @@ export const AppHttpRequests = () => {
 
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: Task) => {
         // update task status
-        const model = {
-            title:task.title,
-            deadline:task.deadline,
-            priority:task.priority,
-            startDate:task.startDate,
-            description:task.description,
-            status:,
+        const model: BaseTask = {
+            title: task.title,
+            deadline: task.deadline,
+            priority: task.priority,
+            startDate: task.startDate,
+            description: task.description,
+            status: e.currentTarget.checked ? 2 : 0,
 
         }
-        axios.put<Response<{ item: Task }>>(`https://social-network.samuraijs.com/api/1.1//todo-lists/${todolistId}/tasks/{taskId}`, {title}, config)
+        axios.put<Response<{
+            item: Task
+        }>>(`https://social-network.samuraijs.com/api/1.1//todo-lists/${task.todoListId}/tasks/${task.id}`, model, config)
             .then(res => {
-                console.log(res.data)
+                const newTask = res.data.data.item
+                setTasks({...tasks, [task.todoListId]: tasks[task.todoListId].map(t=>t.id ===task.id?newTask:t)})
             })
     }
 
@@ -116,11 +123,11 @@ export const AppHttpRequests = () => {
 
                         {/* Tasks */}
                         {!!tasks[tl.id] &&
-                            tasks[tl.id].map((task: any) => {
+                            tasks[tl.id].map((task) => {
                                 return (
                                     <div key={task.id}>
                                         <Checkbox
-                                            checked={task.isDone}
+                                            checked={task.status === 2}
                                             onChange={e => changeTaskStatusHandler(e, task)}
                                         />
                                         <EditAbleSpan
@@ -173,15 +180,19 @@ type GetTasksResponse = {
     error: string | null
 }
 
-type Task = {
-    description: string | null
-    title: string
-    status: number
-    priority: number
-    startDate: string | null
-    deadline: string | null
+type Task = BaseTask & {
     id: string
     todoListId: string
     order: number
     addedDate: string
 }
+type BaseTask = {
+    description: string | null
+    title: string
+    status: TaskStatus;
+    priority: number
+    startDate: string | null
+    deadline: string | null
+
+}
+
