@@ -8,7 +8,7 @@ import {Todolists} from "../features/todolists/ui/Todolists/Todolists";
 import {TaskStatus} from "../common/enums/TaskStatus";
 
 const token = '16203159-05af-4caa-b112-e1c3159d626d'
-const apiKey = '39d46fbc-6e06-4ed4-b36f-6088c630fe0d'
+const apiKey = '78b84660-cbc2-4f23-9299-f24b9d17616f'
 
 const config = {
     headers: {
@@ -63,6 +63,11 @@ export const AppHttpRequests = () => {
 
     const updateTodolistHandler = (id: string, title: string) => {
         // update todolist title
+        const body = { title }
+        axios.put<Response>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`,body, config)
+            .then(() => {
+                setTodolists(todolists.map(tl => tl.id === id?{...tl, title}:tl))
+            })
     }
 
     const createTaskHandler = (title: string, todolistId: string) => {
@@ -78,6 +83,11 @@ export const AppHttpRequests = () => {
 
     const removeTaskHandler = (taskId: string, todolistId: string) => {
         // remove task
+        axios.delete<Response>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`, config)
+            .then(res => {
+                // const newTasks = tasks.map(td=>{})
+setTasks({...tasks, [todolistId]:tasks[todolistId].filter(tl=>tl.id!==taskId)})
+            })
     }
 
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: Task) => {
@@ -102,7 +112,25 @@ export const AppHttpRequests = () => {
 
     const changeTaskTitleHandler = (title: string, task: any) => {
         // update task title
+        const model: BaseTask = {
+            title: title,
+            deadline: task.deadline,
+            priority: task.priority,
+            startDate: task.startDate,
+            description: task.description,
+            status: task.status
+
+        }
+        axios.put<Response<{
+            item: Task
+        }>>(`https://social-network.samuraijs.com/api/1.1//todo-lists/${task.todoListId}/tasks/${task.id}`, model, config)
+            .then(res => {
+                const newTask = res.data.data.item
+                setTasks({...tasks, [task.todoListId]: tasks[task.todoListId].map(t=>t.id ===task.id?newTask:t)})
+            })
     }
+
+
 
     return (
         <div style={{margin: '20px'}}>
