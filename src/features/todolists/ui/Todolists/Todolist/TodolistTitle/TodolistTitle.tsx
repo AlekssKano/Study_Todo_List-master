@@ -20,7 +20,7 @@ export const TodolistTitle = (props:Props) => {
 
     const removeTodoList = () => {
 
-        dispatch(RemoveTodolistAC(props.todolist.id))
+        dispatch(RemoveTodolistAC({todolistId: props.todolist.id}))
     }
 
     return (

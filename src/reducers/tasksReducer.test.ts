@@ -79,7 +79,7 @@ test('title of specified task should be changed', () => {
 test('property with todolistId should be deleted', () => {
 
 
-    const action = RemoveTodolistAC('todolistId2')
+    const action = RemoveTodolistAC({todolistId:'todolistId2'})
 
     const endState = tasksReducer(startState, action)
 

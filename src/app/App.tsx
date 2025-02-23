@@ -77,7 +77,7 @@ const dispatch = useAppDispatch();
     }
     const removeTodoList = (todolistId: string) => {
 
-        dispatch(RemoveTodolistAC(todolistId))
+        dispatch(RemoveTodolistAC({todolistId:todolistId}))
     }
 
     const changeTodolistTitle = (newTitle: string, todolistId: string) => {

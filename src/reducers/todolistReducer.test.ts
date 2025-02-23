@@ -8,9 +8,10 @@ import {
 import { v1 } from 'uuid'
 import {strict} from "node:assert";
 import {ToDolistType} from "../app/App";
+import {nanoid} from "@reduxjs/toolkit";
 
-let todolistId1=v1()
-let todolistId2 = v1()
+let todolistId1=nanoid()
+let todolistId2 = nanoid()
 let startState: ToDolistType[] = []
 beforeEach(()=>{
     startState = [
@@ -29,7 +30,7 @@ test('correct todolist should be removed', () => {
     // }
     // const action:RemoveTodolistActionType = RemoveTodolistAC(todolistId1) // var 2, better and laconic
 
-    const endState = todolistsReducer(startState, RemoveTodolistAC(todolistId1) )//var 3 3 in1
+    const endState = todolistsReducer(startState, RemoveTodolistAC({todolistId: todolistId1}) )//var 3 3 in1
 
     // 3. Проверяем, что наши действия (изменения state) соответствуют ожиданию
     // в массиве останется один тудулист
