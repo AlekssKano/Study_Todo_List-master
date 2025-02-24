@@ -1,4 +1,4 @@
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasksReducer'
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC, tasksReducer} from './tasksReducer'
 import {AddTodolistAC, RemoveTodolistAC} from "./todolistsReducer";
 import {v1} from "uuid";
 import {TasksStateType} from "../app/App";
@@ -20,7 +20,7 @@ beforeEach(()=>{
 test('correct task should be deleted from correct array', () => {
 
 
-    const endState = tasksReducer(startState, removeTaskAC({taskId:'2', todolistId:'todolistId2'}))
+    const endState = tasksReducer(startState, RemoveTaskAC({taskId:'2', todolistId:'todolistId2'}))
 
     expect(endState).toEqual({
         todolistId1: [

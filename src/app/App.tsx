@@ -14,7 +14,7 @@ import {
     RemoveTodolistAC,
     todolistsReducer
 } from "../reducers/todolistsReducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "../reducers/tasksReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC, tasksReducer} from "../reducers/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./store";
 import {useAppDispatch, useAppSelector} from "./hooks";
@@ -54,7 +54,7 @@ const dispatch = useAppDispatch();
     };
 
     const removeTask = (taskId: string, todilistId: string) => {
-        dispatch(removeTaskAC({taskId:taskId, todolistId:todilistId}))
+        dispatch(RemoveTaskAC({taskId:taskId, todolistId:todilistId}))
 
 
     }

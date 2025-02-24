@@ -1,4 +1,4 @@
-import {removeTaskAC, tasksReducer} from "../reducers/tasksReducer";
+import {RemoveTaskAC, tasksReducer} from "../reducers/tasksReducer";
 import {appReducer, changeModeAC} from "./app_reducer";
 export type ThemeMode = 'dark' | 'light'
 

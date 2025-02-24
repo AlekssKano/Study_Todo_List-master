@@ -6,7 +6,7 @@ import {TasksStateType, ToDolistType} from "../../../../../../../app/App";
 import {TaskType} from "../../TodoList";
 import {RemoveTodolistAC} from "../../../../../../../reducers/todolistsReducer";
 import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../../../../../../reducers/tasksReducer";
+import {changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC} from "../../../../../../../reducers/tasksReducer";
 import {useAppDispatch} from "../../../../../../../app/hooks";
 
 type Props ={
@@ -18,7 +18,7 @@ export const Task =({task, todolist}:Props)=>{
 
 
     const onClickRemoveTaskHandler = () => {
-        dispatch(removeTaskAC({taskId: task.id, todolistId: todolist.id}))
+        dispatch(RemoveTaskAC({taskId: task.id, todolistId: todolist.id}))
     }
 
         const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
