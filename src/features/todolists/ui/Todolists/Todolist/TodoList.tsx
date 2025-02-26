@@ -6,8 +6,8 @@ import {ToDolistType} from "../../../../../app/App";
 import {Tasks} from "./Tasks/Tasks";
 import {FilterTasksButtons} from "./FilterTaskButton/FilterTasksButtons";
 import AddItemForm from "../../../../../common/components/AddItemForm/AddItemForm";
-import {addTaskAC} from "../../../../../reducers/tasksReducer";
-import {useAppDispatch} from "../../../../../app/hooks";
+import {useAppDispatch} from "../../../../../common/hooks";
+import {addTaskAC} from "../../../../model/tasksReducer";
 
 type TodoListProps = {
 

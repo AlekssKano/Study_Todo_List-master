@@ -1,13 +1,10 @@
 import {
-    AddTodolistAC,
-    AddTodolistActionType, ChangeTodolistFilterAC, ChangeTodolistFilterActionType, ChangeTodolistTitleAC,
-    ChangeTodolistTitleActionType, RemoveTodolistAC,
-    RemoveTodolistActionType,
+    AddTodolistAC, ChangeTodolistFilterAC, ChangeTodolistTitleAC, RemoveTodolistAC,
     todolistsReducer
-} from './todolistsReducer';
+} from '../todolistsReducer';
 import { v1 } from 'uuid'
 import {strict} from "node:assert";
-import {ToDolistType} from "../app/App";
+import {ToDolistType} from "../../../app/App";
 import {nanoid} from "@reduxjs/toolkit";
 
 let todolistId1=nanoid()

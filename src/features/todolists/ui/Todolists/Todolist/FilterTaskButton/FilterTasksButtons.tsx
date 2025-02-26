@@ -2,8 +2,8 @@ import {Button, List} from "@mui/material";
 import AddItemForm from "../../../../../../common/components/AddItemForm/AddItemForm";
 import React from "react";
 import {filterValuesType, ToDolistType} from "../../../../../../app/App";
-import {ChangeTodolistFilterAC} from "../../../../../../reducers/todolistsReducer";
-import {useAppDispatch} from "../../../../../../app/hooks";
+import {useAppDispatch} from "../../../../../../common/hooks";
+import {ChangeTodolistFilterAC} from "../../../../../model/todolistsReducer";
 
 type ButtonFilterType= {
     title: string

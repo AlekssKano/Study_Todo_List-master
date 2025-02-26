@@ -6,7 +6,7 @@ const initialState = {
     themeMode: 'light'  as ThemeMode,
 }
 
-export const appReducer = (
+export const appReducerOld = (
     state: InitialState = initialState,
     action: ActionsType
 ): InitialState => {

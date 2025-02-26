@@ -2,9 +2,9 @@ import {EditAbleSpan} from "../../../../../../common/components/EditAbleSpan/Edi
 import {IconButton, Switch} from "@mui/material";
 import DeletedIcon from "@mui/icons-material/Delete";
 import React, {useState} from "react";
-import {ChangeTodolistTitleAC, RemoveTodolistAC} from "../../../../../../reducers/todolistsReducer";
-import {useAppDispatch} from "../../../../../../app/hooks";
+import {useAppDispatch} from "../../../../../../common/hooks";
 import {ToDolistType} from "../../../../../../app/App";
+import {ChangeTodolistTitleAC, RemoveTodolistAC} from "../../../../../model/todolistsReducer";
 
 
 type Props ={

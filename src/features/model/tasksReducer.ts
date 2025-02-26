@@ -1,9 +1,9 @@
-import {TaskType} from "../features/todolists/ui/Todolists/Todolist/TodoList";
+import {TaskType} from "../todolists/ui/Todolists/Todolist/TodoList";
 import {
     AddTodolistAC,
     RemoveTodolistAC,
 } from "./todolistsReducer";
-import {TasksStateType} from "../app/App";
+import {TasksStateType} from "../../app/App";
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
 const initialState: TasksStateType = {}
 

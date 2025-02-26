@@ -4,17 +4,18 @@ import React from "react";
 import {amber} from "@mui/material/colors";
 import {getTheme} from "../../theme";
 import {useSelector} from "react-redux";
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {changeModeAC} from "../../../app/app_reducer";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {selectThemeMode} from "../../../app/app_selectors";
+import {changeThemeModeAC} from "../../../app/app-reducer";
 
 export const Header=()=> {
-    const themeMode=useAppSelector(state =>state.app.themeMode);
+    const themeMode=useAppSelector(selectThemeMode)
     const theme = getTheme(themeMode)
 
     const dispatch = useAppDispatch();
     //modeSelector
      const ChangeModeSelector =()=>{
-        dispatch(changeModeAC(themeMode==='light'?'dark':'light'))
+        dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
 
     return (

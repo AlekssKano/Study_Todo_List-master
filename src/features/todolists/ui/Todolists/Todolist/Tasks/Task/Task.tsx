@@ -4,10 +4,8 @@ import {EditAbleSpan} from "../../../../../../../common/components/EditAbleSpan/
 import React, {ChangeEvent} from "react";
 import {TasksStateType, ToDolistType} from "../../../../../../../app/App";
 import {TaskType} from "../../TodoList";
-import {RemoveTodolistAC} from "../../../../../../../reducers/todolistsReducer";
-import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC} from "../../../../../../../reducers/tasksReducer";
-import {useAppDispatch} from "../../../../../../../app/hooks";
+import {useAppDispatch} from "../../../../../../../common/hooks";
+import {changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC} from "../../../../../../model/tasksReducer";
 
 type Props ={
     todolist:ToDolistType
