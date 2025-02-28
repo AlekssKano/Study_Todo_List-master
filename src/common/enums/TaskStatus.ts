@@ -3,3 +3,10 @@ export enum TaskStatus {
     InProgress,
     Completed
 }
+export enum TaskPriority {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later
+}

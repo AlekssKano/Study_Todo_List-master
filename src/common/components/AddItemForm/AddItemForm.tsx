@@ -6,7 +6,7 @@ type AddItemFormPropsType = {
     maxItemLength:number
 
 }
-const AddItemForm = ({addItem,
+export const AddItemForm = ({addItem,
     maxItemLength
 
 }:AddItemFormPropsType) => {
