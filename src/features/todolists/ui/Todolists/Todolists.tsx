@@ -1,18 +1,23 @@
-import {ToDolistType} from "../../../../app/App";
+import {DomainTodolist} from "../../../../app/App";
 import {TaskType, TodoList} from "./Todolist/TodoList";
 import {Grid2, Paper} from "@mui/material";
-import React from "react";
-import {useAppSelector} from "../../../../common/hooks";
+import React, {useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "../../../../common/hooks";
 import {selectTodolists} from "../../../model/todolists_selector";
+import { setTodolist} from "../../../model/todolists-slice";
 
 
 export const Todolists = () => {
     const todolists = useAppSelector(selectTodolists)
-    console.log(todolists)
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setTodolist())
+    }, []);
 
     return (
         <>
-            {todolists.map((tl: ToDolistType) => {
+            {todolists.map((tl: DomainTodolist) => {
                     return (
                         <Grid2 key={tl.id}>
                             <Paper elevation={8}>

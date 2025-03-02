@@ -1,9 +1,9 @@
 import {Button, List} from "@mui/material";
 import AddItemForm from "../../../../../../common/components/AddItemForm/AddItemForm";
 import React from "react";
-import {filterValuesType, ToDolistType} from "../../../../../../app/App";
+import {filterValuesType, DomainTodolist} from "../../../../../../app/App";
 import {useAppDispatch} from "../../../../../../common/hooks";
-import {ChangeTodolistFilterAC} from "../../../../../model/todolistsReducer";
+import {ChangeTodolistFilterAC} from "../../../../../model/todolists-slice";
 
 type ButtonFilterType= {
     title: string
@@ -11,7 +11,7 @@ type ButtonFilterType= {
     color: 'secondary' | 'primary'
 }
 type Props ={
-    todolist:ToDolistType
+    todolist:DomainTodolist
 }
 export const FilterTasksButtons = ({todolist}:Props)=>{
     const dispatch = useAppDispatch()

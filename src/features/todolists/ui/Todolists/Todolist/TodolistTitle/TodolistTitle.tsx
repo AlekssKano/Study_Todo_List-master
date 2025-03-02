@@ -3,19 +3,22 @@ import {IconButton, Switch} from "@mui/material";
 import DeletedIcon from "@mui/icons-material/Delete";
 import React, {useState} from "react";
 import {useAppDispatch} from "../../../../../../common/hooks";
-import {ToDolistType} from "../../../../../../app/App";
-import {ChangeTodolistTitleAC, RemoveTodolistAC} from "../../../../../model/todolistsReducer";
+import {DomainTodolist} from "../../../../../../app/App";
+import {changeTodolistTitle, RemoveTodolistAC} from "../../../../../model/todolists-slice";
 
 
 type Props ={
-    todolist:ToDolistType
+    todolist:DomainTodolist
 }
 export const TodolistTitle = (props:Props) => {
     const [collapsed, setCollapsed] = useState(false)
     const dispatch = useAppDispatch()
 
-    const changeTodolistTitle = (newTitle: string) => {
-        dispatch(ChangeTodolistTitleAC({title:newTitle, todolistId: props.todolist.id}))
+    // const changeTodolistTitleHandler = (newTitle: string) => {
+    //     dispatch(ChangeTodolistTitleAC({title:newTitle, todolistId: props.todolist.id}))
+    // }
+    const changeTodolistTitleHandler = (newTitle: string) => {
+        dispatch(changeTodolistTitle({title:newTitle, id: props.todolist.id}))
     }
 
     const removeTodoList = () => {
@@ -25,7 +28,7 @@ export const TodolistTitle = (props:Props) => {
 
     return (
         <>
-            <EditAbleSpan title={props.todolist.title} changeItemTitle={changeTodolistTitle}/>
+            <EditAbleSpan title={props.todolist.title} changeItemTitle={changeTodolistTitleHandler}/>
             <IconButton size={'small'}
                         onClick={removeTodoList}>
                 <DeletedIcon/>

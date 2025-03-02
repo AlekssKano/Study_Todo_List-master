@@ -1,15 +1,15 @@
 import {
     AddTodolistAC, ChangeTodolistFilterAC, ChangeTodolistTitleAC, RemoveTodolistAC,
     todolistsReducer
-} from '../todolistsReducer';
+} from '../todolists-slice';
 import { v1 } from 'uuid'
 import {strict} from "node:assert";
-import {ToDolistType} from "../../../app/App";
+import {DomainTodolist} from "../../../app/App";
 import {nanoid} from "@reduxjs/toolkit";
 
 let todolistId1=nanoid()
 let todolistId2 = nanoid()
-let startState: ToDolistType[] = []
+let startState: DomainTodolist[] = []
 beforeEach(()=>{
     startState = [
         { id: todolistId1, title: 'What to learn', filter: 'all' },

@@ -1,16 +1,16 @@
 import {nanoid} from '@reduxjs/toolkit'
-import type {ToDolistType} from '../../../app/App'
+import type {DomainTodolist} from '../../../app/App'
 import {
     ChangeTodolistFilterAC,
     ChangeTodolistTitleAC,
     AddTodolistAC,
     RemoveTodolistAC,
     todolistsReducer
-} from '../todolistsReducer'
+} from '../todolists-slice'
 
 let todolistId1: string
 let todolistId2: string
-let startState: ToDolistType[] = []
+let startState: DomainTodolist[] = []
 
 beforeEach(() => {
     todolistId1 = nanoid()

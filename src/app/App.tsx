@@ -9,16 +9,15 @@ import {
 
 import {useDispatch, useSelector} from "react-redux";
 import {getTheme} from "../common/theme";
-import {Header} from "../common/components/Header/Header";
+import {Header} from "../common/components";
 import {Main} from "./Main";
+import {selectThemeMode} from "./app-slice";
+import {Todolist} from "../features/todolists/api/todolistsApi.types";
 
-import {selectThemeMode} from "./app_selectors";
 
 export type filterValuesType = 'all' | 'active' | 'completed';
 
-export type ToDolistType = {
-    id: string
-    title: string
+export type DomainTodolist = Todolist &{
     filter: filterValuesType
 }
 

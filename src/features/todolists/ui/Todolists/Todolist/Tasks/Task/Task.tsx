@@ -2,13 +2,13 @@ import {Checkbox, IconButton, ListItem} from "@mui/material";
 import DeletedIcon from "@mui/icons-material/Delete";
 import {EditAbleSpan} from "../../../../../../../common/components/EditAbleSpan/EditAbleSpan";
 import React, {ChangeEvent} from "react";
-import {TasksStateType, ToDolistType} from "../../../../../../../app/App";
+import {TasksStateType, DomainTodolist} from "../../../../../../../app/App";
 import {TaskType} from "../../TodoList";
 import {useAppDispatch} from "../../../../../../../common/hooks";
-import {changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC} from "../../../../../../model/tasksReducer";
+import {changeTaskStatusAC, changeTaskTitleAC, RemoveTaskAC} from "../../../../../../model/tasks-slice";
 
 type Props ={
-    todolist:ToDolistType
+    todolist:DomainTodolist
     task: TaskType
 }
 export const Task =({task, todolist}:Props)=>{

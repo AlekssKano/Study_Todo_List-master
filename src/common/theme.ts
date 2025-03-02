@@ -1,6 +1,6 @@
 import {createTheme} from "@mui/material";
 import {amber, pink} from "@mui/material/colors";
-import {ThemeMode} from "../app/app-reducer";
+import {ThemeMode} from "../app/app-slice";
 
 
 export const getTheme=(themeMode:ThemeMode)=>{

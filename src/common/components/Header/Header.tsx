@@ -5,8 +5,7 @@ import {amber} from "@mui/material/colors";
 import {getTheme} from "../../theme";
 import {useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {selectThemeMode} from "../../../app/app_selectors";
-import {changeThemeModeAC} from "../../../app/app-reducer";
+import {changeThemeModeAC, selectThemeMode} from "../../../app/app-slice";
 
 export const Header=()=> {
     const themeMode=useAppSelector(selectThemeMode)

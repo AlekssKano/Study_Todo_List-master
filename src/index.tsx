@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
       <Provider store={store}>
-       <AppHttpRequests/>
+       <App/>
       </Provider>
   // </React.StrictMode>
 );

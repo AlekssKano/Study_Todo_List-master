@@ -1,18 +1,21 @@
 import { combineReducers, legacy_createStore as createStore } from 'redux'
-import {tasksReducer} from "../features/model/tasksReducer";
-import {todolistsReducer} from "../features/model/todolistsReducer";
-import {appReducer} from "./app-reducer";
+import {tasksReducer} from "../features/model/tasks-slice";
+import {todolistsReducer} from "../features/model/todolists-slice";
+import {appReducer} from "./app-slice";
+import {configureStore} from "@reduxjs/toolkit";
 
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
-const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    todolists: todolistsReducer,
-    app: appReducer,
-})
+
 // непосредственно создаём store
-export const store = createStore(rootReducer)
+export const store = configureStore({
+    reducer:{
+        tasks: tasksReducer,
+        todolists: todolistsReducer,
+        app: appReducer,
+    }
+})
 
 // определить автоматически тип всего объекта состояния
 export type RootState = ReturnType<typeof store.getState>

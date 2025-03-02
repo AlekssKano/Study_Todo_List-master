@@ -1,34 +1,34 @@
 import {TaskType} from "../TodoList";
 import React, {ChangeEvent} from "react";
 import {Checkbox, IconButton, List, ListItem} from "@mui/material";
-import {ToDolistType} from "../../../../../../app/App";
+import {DomainTodolist} from "../../../../../../app/App";
 import {useAppSelector} from "../../../../../../common/hooks";
 import {Task} from "./Task/Task";
 import {selectTasks} from "../../../../../model/tasks_selectors";
 
 type Props ={
-    todolist:ToDolistType
+    todolist:DomainTodolist
 }
 export const Tasks=({todolist}:Props)=>{
     const tasks = useAppSelector(selectTasks)
     // const tasks = useAppSelector(state=>state.tasks)
-
-    let filteredTasks: Array<TaskType> = tasks[todolist.id]
+const todolistTasks=tasks[todolist.id]
+    let filteredTasks: Array<TaskType> = todolistTasks
     if (todolist.filter === 'active') {
-        filteredTasks = tasks[todolist.id].filter(task => task.isDone === false)
+        filteredTasks = todolistTasks.filter(task => !task.isDone)
     }
 
     if (todolist.filter === 'completed') {
-        filteredTasks = tasks[todolist.id].filter(task => task.isDone === true)
+        filteredTasks = todolistTasks.filter(task => task.isDone)
     }
 
     return(
 <>
 
-    {filteredTasks.length !== 0
+    {filteredTasks && filteredTasks.length !== 0
         ?
         <List>
-            {filteredTasks.map((task)=>{
+            { filteredTasks && filteredTasks.map((task)=>{
                 return <Task key ={task.id} todolist={todolist} task={task} />
             })}
         </List>

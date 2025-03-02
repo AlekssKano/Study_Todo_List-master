@@ -1,4 +1,3 @@
-import {appReducer} from "./app-reducer";
 export type ThemeMode = 'dark' | 'light'
 
 type InitialState = typeof initialState
