@@ -5,7 +5,7 @@ const initialState = {
     themeMode: 'light' as ThemeMode,
 }
 
-const appSlice=createSlice({
+export const appSlice=createSlice({
     name: "app",
     initialState:{
         themeMode:"light" as ThemeMode,
@@ -18,7 +18,7 @@ const appSlice=createSlice({
         }),
     selectors:{
         selectThemeMode:(state)=> state.themeMode
-
+// export const selectThemeMode = (state:RootState):ThemeMode=>state.app.themeMode
     }
     })
 

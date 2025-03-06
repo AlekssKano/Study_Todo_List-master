@@ -5,13 +5,18 @@ import {DomainTodolist} from "../../../../../../app/App";
 import {useAppSelector} from "../../../../../../common/hooks";
 import {Task} from "./Task/Task";
 import {selectTasks} from "../../../../../model/tasks_selectors";
+import {selectTasksS} from "../../../../../model/tasks-slice";
 
 type Props ={
     todolist:DomainTodolist
 }
 export const Tasks=({todolist}:Props)=>{
-    const tasks = useAppSelector(selectTasks)
+    // const tasks = useAppSelector(selectTasks)
+    const tasks = useAppSelector(selectTasksS) // не работает
     // const tasks = useAppSelector(state=>state.tasks)
+
+
+
 const todolistTasks=tasks[todolist.id]
     let filteredTasks: Array<TaskType> = todolistTasks
     if (todolist.filter === 'active') {
