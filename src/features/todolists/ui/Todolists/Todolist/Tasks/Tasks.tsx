@@ -1,30 +1,31 @@
-import {TaskType} from "../TodoList";
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 import {Checkbox, IconButton, List, ListItem} from "@mui/material";
 import {DomainTodolist} from "../../../../../../app/App";
-import {useAppSelector} from "../../../../../../common/hooks";
-import {Task} from "./Task/Task";
-import {selectTasks} from "../../../../../model/tasks_selectors";
-import {selectTasksS} from "../../../../../model/tasks-slice";
+import {useAppDispatch, useAppSelector} from "../../../../../../common/hooks";
+import {fetchTasks, selectTasksS} from "../../../../../model/tasks-slice";
+import {TaskItem } from "./Task/TaskItem";
 
 type Props ={
     todolist:DomainTodolist
 }
 export const Tasks=({todolist}:Props)=>{
-    // const tasks = useAppSelector(selectTasks)
-    const tasks = useAppSelector(selectTasksS) // не работает
-    // const tasks = useAppSelector(state=>state.tasks)
+    const tasks = useAppSelector(selectTasksS) //
+    const dispatch = useAppDispatch()
+    const { id, filter } = todolist
 
+    useEffect(() => {
+        dispatch(fetchTasks(id))
+    }, [])
 
 
 const todolistTasks=tasks[todolist.id]
-    let filteredTasks: Array<TaskType> = todolistTasks
+    let filteredTasks = todolistTasks
     if (todolist.filter === 'active') {
-        filteredTasks = todolistTasks.filter(task => !task.isDone)
+        filteredTasks = todolistTasks.filter(task => !task.status)
     }
 
     if (todolist.filter === 'completed') {
-        filteredTasks = todolistTasks.filter(task => task.isDone)
+        filteredTasks = todolistTasks.filter(task => task.status)
     }
 
     return(
@@ -34,7 +35,7 @@ const todolistTasks=tasks[todolist.id]
         ?
         <List>
             { filteredTasks && filteredTasks.map((task)=>{
-                return <Task key ={task.id} todolist={todolist} task={task} />
+                return <TaskItem key ={task.id} todolist={todolist} task={task} />
             })}
         </List>
         : <span>Your tasks list is empty</span>

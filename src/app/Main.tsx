@@ -2,15 +2,15 @@ import {Container, Grid2, Paper} from "@mui/material";
 import React from "react";
 import AddItemForm from "../common/components/AddItemForm/AddItemForm";
 import {Todolists} from "../features/todolists/ui/Todolists/Todolists";
-import {AddTodolistAC, createTodolistTC} from "../features/model/todolists-slice";
 import {useAppDispatch} from "../common/hooks";
 import {nanoid} from "@reduxjs/toolkit";
+import {createTodolist} from "../features/model/todolists-slice";
 
 export const Main = () => {
 
     const dispatch = useAppDispatch();
     const addTodoList = (title: string) => {
-        dispatch(createTodolistTC(title))
+        dispatch(createTodolist(title))
     }
 
     return (

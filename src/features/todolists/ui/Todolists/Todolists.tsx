@@ -1,9 +1,9 @@
 import {DomainTodolist} from "../../../../app/App";
-import {TaskType, TodoList} from "./Todolist/TodoList";
+import { TodoList} from "./Todolist/TodoList";
 import {Grid2, Paper} from "@mui/material";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../common/hooks";
-import {selectTodolistsS, setTodolist} from "../../../model/todolists-slice";
+import {fetchTodolists, selectTodolistsS} from "../../../model/todolists-slice";
 // import {selectTodolists} from "../../../model/todolists_selector";
 import {useSelector} from "react-redux";
 
@@ -14,7 +14,8 @@ export const Todolists = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setTodolist())
+        // dispatch(setTodolist())
+        dispatch(fetchTodolists())
     }, []);
 
     return (

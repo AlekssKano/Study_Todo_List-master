@@ -4,7 +4,7 @@ import DeletedIcon from "@mui/icons-material/Delete";
 import React, {useState} from "react";
 import {useAppDispatch} from "../../../../../../common/hooks";
 import {DomainTodolist} from "../../../../../../app/App";
-import {changeTodolistTitle, RemoveTodolistAC} from "../../../../../model/todolists-slice";
+import {changeTodolistTitle, deleteTodolist} from "../../../../../model/todolists-slice";
 
 
 type Props ={
@@ -23,7 +23,9 @@ export const TodolistTitle = (props:Props) => {
 
     const removeTodoList = () => {
 
-        dispatch(RemoveTodolistAC({todolistId: props.todolist.id}))
+        // dispatch(RemoveTodolistAC({todolistId: props.todolist.id}))
+         dispatch(deleteTodolist( props.todolist.id))
+
     }
 
     return (

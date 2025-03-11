@@ -2,7 +2,7 @@
 import type { Todolist } from "./todolistsApi.types"
 import {instance} from "../../../common/instance";
 import {TasksStateType} from "../../../app/App";
-import {BaseTask, GetTasksResponse, Task} from "./tasksApi.types";
+import {UpdateTaskModel, GetTasksResponse, Task, DomainTask} from "./tasksApi.types";
 import {BaseResponse} from "../../../common/types";
 
 export const tasksApi = {
@@ -12,10 +12,10 @@ export const tasksApi = {
     createTask(todolistId: string, title: string) {
         return instance.post<BaseResponse<{ item: Task }>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
-    updateTask(todolistId: string, model: BaseTask, taskId: string) {
-        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+    updateTask(todolistId: string, model: UpdateTaskModel, taskId: string) {
+        return instance.put<BaseResponse<{ item: DomainTask }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
     deleteTask(todolistId: string, taskId: string) {
-        return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
+        return instance.delete<BaseResponse>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
 }

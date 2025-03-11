@@ -5,10 +5,12 @@ import {amber} from "@mui/material/colors";
 import {getTheme} from "../../theme";
 import {useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {changeThemeModeAC, selectThemeMode} from "../../../app/app-slice";
+import {changeThemeModeAC, selectStatus, selectThemeMode} from "../../../app/app-slice";
+import LinearProgress from '@mui/material/LinearProgress'
 
 export const Header=()=> {
     const themeMode=useAppSelector(selectThemeMode)
+    const status=useAppSelector(selectStatus)
     const theme = getTheme(themeMode)
 
     const dispatch = useAppDispatch();
@@ -31,6 +33,10 @@ export const Header=()=> {
             </Box>
 
         </Toolbar>
+        {  status === 'loading' && <LinearProgress />
+        }
+
+
     </AppBar>
     )
 }

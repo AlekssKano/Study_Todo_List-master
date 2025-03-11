@@ -7,7 +7,7 @@ import {Tasks} from "./Tasks/Tasks";
 import {FilterTasksButtons} from "./FilterTaskButton/FilterTasksButtons";
 import AddItemForm from "../../../../../common/components/AddItemForm/AddItemForm";
 import {useAppDispatch} from "../../../../../common/hooks";
-import {addTaskAC} from "../../../../model/tasks-slice";
+import {createTask} from "../../../../model/tasks-slice";
 
 type TodoListProps = {
 
@@ -15,12 +15,12 @@ type TodoListProps = {
 
 }
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-
+// export type TaskType = {
+//     id: string
+//     title: string
+//     isDone: boolean
+// }
+//
 
 export const TodoList = ({
                              todolist
@@ -34,7 +34,7 @@ export const TodoList = ({
     //JSX
     const dispatch = useAppDispatch();
     const addTask = (title: string) => {
-        dispatch(addTaskAC({title:title, todolistId:todolist.id}))
+        dispatch(createTask({title:title, todolistId:todolist.id}))
     }
 
     return (
