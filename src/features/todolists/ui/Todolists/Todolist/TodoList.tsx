@@ -50,7 +50,7 @@ export const TodoList = ({
 
             {/*                />*/}
             <TodolistTitle todolist={todolist}/>
-            <AddItemForm addItem={addTask} maxItemLength={9}/>
+            <AddItemForm addItem={addTask} maxItemLength={120} disabled={todolist.entityStatus==='loading'}/>
             <Tasks todolist={todolist}/>
             <div>
                 <FilterTasksButtons todolist={todolist}/>

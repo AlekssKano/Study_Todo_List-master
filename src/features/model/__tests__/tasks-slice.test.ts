@@ -2,7 +2,7 @@ import {createTask, updateTask, deleteTask, fetchTasks, tasksReducer, TasksState
 import {createTodolist, deleteTodolist, todolistsReducer} from "../todolists-slice";
 import {v1} from "uuid";
 import {TasksStateType} from "../../../app/App";
-import {TaskPriority, TaskStatus} from "../../../common/enums/TaskStatus";
+import {TaskPriority, Enums} from "../../../common/enums/enums";
 let startState:TasksState={}
 const taskDefaultValues = {
     description: '',
@@ -18,21 +18,21 @@ beforeEach(() => {
             {
                 id: '1',
                 title: 'CSS',
-                status: TaskStatus.New,
+                status: Enums.New,
                 todoListId: 'todolistId1',
                 ...taskDefaultValues,
             },
             {
                 id: '2',
                 title: 'JS',
-                status: TaskStatus.Completed,
+                status: Enums.Completed,
                 todoListId: 'todolistId1',
                 ...taskDefaultValues,
             },
             {
                 id: '3',
                 title: 'React',
-                status: TaskStatus.New,
+                status: Enums.New,
                 todoListId: 'todolistId1',
                 ...taskDefaultValues,
             },
@@ -41,21 +41,21 @@ beforeEach(() => {
             {
                 id: '1',
                 title: 'bread',
-                status: TaskStatus.New,
+                status: Enums.New,
                 todoListId: 'todolistId2',
                 ...taskDefaultValues,
             },
             {
                 id: '2',
                 title: 'milk',
-                status: TaskStatus.Completed,
+                status: Enums.Completed,
                 todoListId: 'todolistId2',
                 ...taskDefaultValues,
             },
             {
                 id: '3',
                 title: 'tea',
-                status: TaskStatus.New,
+                status: Enums.New,
                 todoListId: 'todolistId2',
                 ...taskDefaultValues,
             },
@@ -74,13 +74,43 @@ test('correct task should be deleted from correct array', () => {
 
     expect(endState).toEqual({
         todolistId1: [
-            { id: '1', title: 'CSS', isDone: false },
-            { id: '2', title: 'JS', isDone: true },
-            { id: '3', title: 'React', isDone: false },
+            {
+                id: '1',
+                title: 'CSS',
+                status: Enums.New,
+                todoListId: 'todolistId1',
+                ...taskDefaultValues,
+            },
+            {
+                id: '2',
+                title: 'JS',
+                status: Enums.Completed,
+                todoListId: 'todolistId1',
+                ...taskDefaultValues,
+            },
+            {
+                id: '3',
+                title: 'React',
+                status: Enums.New,
+                todoListId: 'todolistId1',
+                ...taskDefaultValues,
+            },
         ],
         todolistId2: [
-            { id: '1', title: 'bread', isDone: false },
-            { id: '3', title: 'tea', isDone: false },
+            {
+                id: '1',
+                title: 'bread',
+                status: Enums.New,
+                todoListId: 'todolistId2',
+                ...taskDefaultValues,
+            },
+            {
+                id: '3',
+                title: 'tea',
+                status: Enums.New,
+                todoListId: 'todolistId2',
+                ...taskDefaultValues,
+            },
         ],
     })
 })
@@ -89,7 +119,7 @@ test('correct task should be added to correct array', () => {
     const newTask = {
         id: 'some-id',
         title: 'juce',
-        status: TaskStatus.New,
+        status: Enums.New,
         todoListId: 'todolistId2',
         description: '',
         priority: 0,
@@ -115,7 +145,7 @@ test('status of specified task should be changed', () => {
     const newTask = {
         id: '2',
         title: 'juce',
-        status: TaskStatus.InProgress,
+        status: Enums.InProgress,
         todoListId: 'todolistId2',
         description: '',
         priority: 0,
@@ -131,15 +161,15 @@ test('status of specified task should be changed', () => {
 
 
     expect(endState['todolistId2'].length).toBe(3);
-    expect(endState['todolistId2'][1].status).toBe(TaskStatus.InProgress);
-    expect(endState['todolistId1'][1].status).toBe(TaskStatus.Completed);
+    expect(endState['todolistId2'][1].status).toBe(Enums.InProgress);
+    expect(endState['todolistId1'][1].status).toBe(Enums.Completed);
 })
 test('title of specified task should be changed', () => {
     const newTask = {
         id: '2',
         title: 'Olala',
-        status:  TaskStatus.Completed,
-        todoListId: 'todolistId2',
+        status:  Enums.Completed,
+        todoListId: 'todolistId1',
         description: '',
         priority: 0,
         startDate: '',
@@ -152,34 +182,42 @@ test('title of specified task should be changed', () => {
         updateTask.fulfilled(newTask ,'requestId',newTask))
 
     expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId2'][1].status).toBe(TaskStatus.InProgress);     expect(endState['todolistId1'][1].title).toBe('Olala')
+    expect(endState['todolistId1'][1].status).toBe(Enums.Completed);
+    expect(endState['todolistId1'][1].title).toBe('Olala');
     expect(endState['todolistId2'][1].title).not.toBe('Olala')
 })
 test('property with todolistId should be deleted', () => {
 
 
-    // const endState = todolistsReducer(
-    //     startState,
-    //     deleteTodolist.fulfilled({ id: todolistId1 }, 'requestId', 'todolistId1'))
-    //
-    // const keys = Object.keys(endState);
-    //
-    // expect(keys.length).toBe(1)
-    // expect(endState['todolistId1']).not.toBeDefined()
-    // // or
-    // expect(endState['todolistId2']).toBeUndefined()
+    const endState = tasksReducer(
+        startState,
+        deleteTodolist.fulfilled({ id: 'todolistId1' }, 'requestId', 'todolistId1'))
+
+    const keys = Object.keys(endState);
+
+    expect(keys.length).toBe(1); //
+    expect(endState['todolistId1']).toBeUndefined(); //
+    expect(endState['todolistId2']).toBeDefined();
 })
 test('new array should be added when new todolist is added', () => {
 
+    const newTodolist = {
+        id: 'todolistId3',
+        title: 'New Todolist',
+        addedDate: new Date().toISOString(),
+        order: 0
+    };
 
-    // const endState = tasksReducer(startState, createTodolist.fulfilled({'new todolist'},'requestId',{ todolistId: 'todolistId2' }))
-    //
-    // const keys = Object.keys(endState)
-    // const newKey = keys.find(k => k !== 'todolistId1' && k !== 'todolistId2')
-    // if (!newKey) {
-    //     throw Error('new key should be added')
-    // }
-    //
-    // expect(keys.length).toBe(3)
-    // expect(endState[newKey]).toEqual([])
+    const endState = tasksReducer(startState, createTodolist.fulfilled(
+        newTodolist,'requestId',
+        newTodolist.title))
+
+    const keys = Object.keys(endState)
+    const newKey = keys.find(k => k !== 'todolistId1' && k !== 'todolistId2')
+    if (!newKey) {
+        throw Error('new key should be added')
+    }
+
+    expect(keys.length).toBe(3)
+    expect(endState[newKey]).toEqual([])
 })

@@ -1,13 +1,14 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button, TextField} from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {RequestStatus} from "../../types";
 type AddItemFormPropsType = {
     addItem:(title:string)=>void
     maxItemLength:number
-
+disabled?:boolean
 }
 export const AddItemForm = ({addItem,
-    maxItemLength
+    maxItemLength,disabled
 
 }:AddItemFormPropsType) => {
     //local states
@@ -52,6 +53,7 @@ export const AddItemForm = ({addItem,
                 onKeyDown={onKeyDownAddItemHandler}
                 error={inputError}
                 helperText={inputError &&'Title is required'}
+                disabled={disabled}
             />
 
 
@@ -63,7 +65,7 @@ export const AddItemForm = ({addItem,
                     // size={"small"}
                     color={"primary"}
                     sx={{m:' 0 15px'}}
-                    disabled={isInputBtrDisabled || userErrorMessage}
+                    disabled={isInputBtrDisabled || userErrorMessage||disabled}
                     onClick={onClickAddItemHandler}
                     endIcon={<AddCircleOutlineIcon/>}
             >add</Button>

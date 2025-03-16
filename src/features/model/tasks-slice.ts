@@ -6,10 +6,11 @@ import {DomainTodolist, TasksStateType} from "../../app/App";
 import {createAction, createReducer, createSlice, nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {tasksApi} from "../todolists/api/tasksApi";
-import {createAppSlice} from "../../common/utils";
+import {createAppSlice, handleServerNetworkError} from "../../common/utils";
 import {CreateTaskArgs, DeleteTaskArgs, DomainTask, UpdateTaskModel} from "../todolists/api/tasksApi.types";
-import {setStatus} from "../../app/app-slice";
+import {setError, setStatus} from "../../app/app-slice";
 import {todolistsApi} from "../todolists/api/todolistsApi";
+import {ResultCode} from "../../common/enums/enums";
 export type TasksState = Record<string, DomainTask[]>
 
 
@@ -59,10 +60,23 @@ export const tasksSlice = createAppSlice({
                         setTimeout(resolve, 2000)
                     })
                     const res = await tasksApi.createTask(args.todolistId,args.title)
-                    dispatch(setStatus({status: 'succeeded'}))
-                    return { task: res.data.data.item }
-                } catch (error) {
-                    // dispatch(setStatus({ status: "failed" }))
+                    debugger
+                    if(res.data.resultCode===ResultCode.Success){
+                        dispatch(setStatus({status: 'succeeded'}))
+                        return { task: res.data.data.item }
+                    }
+                    else{
+                        dispatch(setStatus({status: 'failed'}))
+                        dispatch(setError({ error: res.data.messages.length?  res.data.messages[0]:'Some error occurred'}))
+                        return rejectWithValue(null)
+
+                    }
+
+
+                } catch (error:any) {
+                    // dispatch(setError({ error: error.message}))
+                    // dispatch(setStatus({status: 'failed'}))
+                    handleServerNetworkError(dispatch,error )
                     return rejectWithValue(null)
                 }
             },

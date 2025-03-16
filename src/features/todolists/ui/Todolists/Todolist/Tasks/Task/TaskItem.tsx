@@ -6,7 +6,7 @@ import {TasksStateType, DomainTodolist} from "../../../../../../../app/App";
 import {useAppDispatch} from "../../../../../../../common/hooks";
 import { updateTask, deleteTask} from "../../../../../../model/tasks-slice";
 import {DomainTask} from "../../../../../api/tasksApi.types";
-import {TaskStatus} from "../../../../../../../common/enums/TaskStatus";
+import {Enums} from "../../../../../../../common/enums/enums";
 
 
 type Props ={
@@ -22,7 +22,7 @@ export const TaskItem =({task, todolist}:Props)=>{
     }
 
         const onChangeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            const status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
+            const status = e.currentTarget.checked ? Enums.Completed : Enums.New
             const newTask = { ...task, status }
             dispatch(updateTask(newTask))
 
@@ -32,7 +32,7 @@ export const TaskItem =({task, todolist}:Props)=>{
         dispatch(updateTask(newtask))
 
     }
-    const isTaskCompleted = task.status === TaskStatus.Completed
+    const isTaskCompleted = task.status === Enums.Completed
 
     return(
         <ListItem
