@@ -11,6 +11,7 @@ import {CreateTaskArgs, DeleteTaskArgs, DomainTask, UpdateTaskModel} from "../to
 import {setError, setStatus} from "../../app/app-slice";
 import {todolistsApi} from "../todolists/api/todolistsApi";
 import {ResultCode} from "../../common/enums/enums";
+
 export type TasksState = Record<string, DomainTask[]>
 
 
@@ -27,19 +28,17 @@ export const tasksSlice = createAppSlice({
         }),
         // 📗 thunk
         fetchTasks: create.asyncThunk(
-
-            async (todolistId: string, { rejectWithValue,dispatch }) => {
+            async (todolistId: string, {rejectWithValue, dispatch}) => {
                 try {
                     dispatch(setStatus({status: 'loading'}))
 
                     //waiter
-                    await new Promise(resolve =>  {
-                        setTimeout(resolve, 2000)
-                    })
+
+
                     const res = await tasksApi.getTasks(todolistId)
 
                     dispatch(setStatus({status: 'succeeded'}))
-                    return { tasks: res.data.items, todolistId }
+                    return {tasks: res.data.items, todolistId}
                 } catch (error) {
                     return rejectWithValue(null)
                 }
@@ -51,32 +50,28 @@ export const tasksSlice = createAppSlice({
             },
         ),
         createTask: create.asyncThunk(
-            async (args: CreateTaskArgs, { dispatch, rejectWithValue }) => {
+            async (args: CreateTaskArgs, {dispatch, rejectWithValue}) => {
                 try {
                     dispatch(setStatus({status: 'loading'}))
-
                     //waiter
-                    await new Promise(resolve =>  {
+                    await new Promise(resolve => {
                         setTimeout(resolve, 2000)
                     })
-                    const res = await tasksApi.createTask(args.todolistId,args.title)
+                    const res = await tasksApi.createTask(args.todolistId, args.title)
                     debugger
-                    if(res.data.resultCode===ResultCode.Success){
+                    if (res.data.resultCode === ResultCode.Success) {
                         dispatch(setStatus({status: 'succeeded'}))
-                        return { task: res.data.data.item }
-                    }
-                    else{
+                        return {task: res.data.data.item}
+                    } else {
                         dispatch(setStatus({status: 'failed'}))
-                        dispatch(setError({ error: res.data.messages.length?  res.data.messages[0]:'Some error occurred'}))
+                        dispatch(setError({error: res.data.messages.length ? res.data.messages[0] : 'Some error occurred'}))
                         return rejectWithValue(null)
 
                     }
-
-
-                } catch (error:any) {
+                } catch (error: any) {
                     // dispatch(setError({ error: error.message}))
                     // dispatch(setStatus({status: 'failed'}))
-                    handleServerNetworkError(dispatch,error )
+                    handleServerNetworkError(dispatch, error)
                     return rejectWithValue(null)
                 }
             },
@@ -87,11 +82,21 @@ export const tasksSlice = createAppSlice({
             },
         ),
         deleteTask: create.asyncThunk(
-            async (args: {todolistId: string, taskId: string}, { rejectWithValue }) => {
+            async (args: { todolistId: string, taskId: string }, {dispatch,rejectWithValue}) => {
                 try {
-                    await tasksApi.deleteTask(args.todolistId,args.taskId)
-                    return args
+                    const res =await tasksApi.deleteTask(args.todolistId, args.taskId)
+                    if (res.data.resultCode === ResultCode.Success) {
+                        dispatch(setStatus({status: 'succeeded'}))
+                        return args
+                    }
+                    else{
+                        dispatch(setStatus({status: 'failed'}))
+                        dispatch(setError({error: res.data.messages.length ? res.data.messages[0] : 'Some error occurred'}))
+                        return rejectWithValue(null)
+
+                    }
                 } catch (error) {
+                    handleServerNetworkError(dispatch, error)
                     return rejectWithValue(null)
                 }
             },
@@ -105,12 +110,12 @@ export const tasksSlice = createAppSlice({
                 },
             },
         ), updateTask: create.asyncThunk(
-            async (task: DomainTask, { dispatch,rejectWithValue }) => {
+            async (task: DomainTask, {dispatch, rejectWithValue}) => {
                 try {
                     dispatch(setStatus({status: 'loading'}))
 
                     //waiter
-                    await new Promise(resolve =>  {
+                    await new Promise(resolve => {
                         setTimeout(resolve, 2000)
                     })
                     const model: UpdateTaskModel = {
@@ -122,11 +127,18 @@ export const tasksSlice = createAppSlice({
                         startDate: task.startDate,
                     }
 
-                    await tasksApi.updateTask(task.todoListId, model ,task.id )
-                    dispatch(setStatus({status: 'succeeded'}))
-
-                    return task
+                    const res= await tasksApi.updateTask(task.todoListId, model, task.id)
+                    if (res.data.resultCode === ResultCode.Success) {
+                        dispatch(setStatus({status: 'succeeded'}))
+                        return task
+                    }
+                    else{
+                        dispatch(setStatus({status: 'failed'}))
+                        dispatch(setError({error: res.data.messages.length ? res.data.messages[0] : 'Some error occurred'}))
+                        return rejectWithValue(null)
+                    }
                 } catch (error) {
+                    handleServerNetworkError(dispatch, error)
                     return rejectWithValue(null)
                 }
             },
@@ -152,18 +164,14 @@ export const tasksSlice = createAppSlice({
 
         })
     },
-    selectors:{
-        selectTasksS: (sliceState)=>sliceState
+    selectors: {
+        selectTasksS: (sliceState) => sliceState
     }
 })
 
-export const {deleteTask, createTask, updateTask,fetchTasks} = tasksSlice.actions
+export const {deleteTask, createTask, updateTask, fetchTasks} = tasksSlice.actions
 export const tasksReducer = tasksSlice.reducer
 export const {selectTasksS} = tasksSlice.selectors
-
-
-
-
 
 
 // //     export const RemoveTaskAC= createAction<{taskId: string, todolistId: string}>('tasks/RemoveTaskAC');

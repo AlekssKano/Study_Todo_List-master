@@ -40,7 +40,9 @@ export const TaskItem =({task, todolist}:Props)=>{
                   className={'task'}
                   secondaryAction={
                       <IconButton onClick={onClickRemoveTaskHandler}
-                                  size={'small'} >
+                                  size={'small'}
+                                  disabled={todolist.entityStatus==='loading'}
+                      >
                           <DeletedIcon/>
                       </IconButton>
                   }
@@ -50,9 +52,14 @@ export const TaskItem =({task, todolist}:Props)=>{
                 color={'primary'}
                 onChange={onChangeTaskStatusHandler}
                 checked={isTaskCompleted}
+                disabled={todolist.entityStatus==='loading'}
             />
 
-            <EditAbleSpan title={task.title} changeItemTitle={setTaskNewTitle} classes={isTaskCompleted?"task-done" : "task"}/>
+            <EditAbleSpan title={task.title}
+                          changeItemTitle={setTaskNewTitle}
+                          disabled={todolist.entityStatus==='loading'}
+
+                          classes={isTaskCompleted?"task-done" : "task"}/>
 
         </ListItem>
 

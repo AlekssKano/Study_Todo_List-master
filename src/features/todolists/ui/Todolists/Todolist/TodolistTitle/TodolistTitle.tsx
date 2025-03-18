@@ -30,7 +30,9 @@ export const TodolistTitle = (props:Props) => {
 
     return (
         <>
-            <EditAbleSpan title={props.todolist.title} changeItemTitle={changeTodolistTitleHandler}/>
+            <EditAbleSpan title={props.todolist.title}
+                          disabled={props.todolist.entityStatus==='loading'}
+                          changeItemTitle={changeTodolistTitleHandler}/>
             <IconButton size={'small'}
                         disabled={props.todolist.entityStatus==='loading'}
                         onClick={removeTodoList}>
