@@ -1,4 +1,5 @@
 import {TaskPriority, Enums} from "../../../common/enums/enums";
+import {z} from "zod";
 
 export type Task = UpdateTaskModel & {
     id: string
@@ -7,12 +8,12 @@ export type Task = UpdateTaskModel & {
     addedDate: string
 }
 export type UpdateTaskModel = {
-    description: string
+    description: string | null
     title: string
     status: Enums
     priority: TaskPriority
-    startDate: string
-    deadline: string
+    startDate: string | null
+    deadline: string | null
 
 }
 
@@ -21,7 +22,7 @@ export type GetTasksResponse = {
     totalCount: number
     error: string | null
 }
-export type DomainTask = {
+export type _DomainTask = {
     description: string
     title: string
     status: Enums
@@ -33,6 +34,20 @@ export type DomainTask = {
     order: number
     addedDate: string
 }
+export const DomainTaskSchema = z.object({
+    description: z.string().nullable(),
+    title: z.string(),
+    status: z.nativeEnum(Enums),
+    priority: z.nativeEnum(TaskPriority),
+    startDate: z.string().nullable(),
+    deadline: z.string().nullable(),
+    id: z.string(),
+    todoListId: z.string(),
+    order: z.number(),
+    addedDate: z.string(),
+})
+
+export type DomainTask = z.infer<typeof DomainTaskSchema>
 
 
 

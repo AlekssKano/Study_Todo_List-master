@@ -1,6 +1,5 @@
-import {filterValuesType, DomainTodolist} from "../../app/App";
 import {createAction, createAsyncThunk, createReducer, createSlice, current, nanoid} from "@reduxjs/toolkit";
-import {Todolist} from "../todolists/api/todolistsApi.types";
+import {DomainTodolist, DomainTodolistSchema, filterValuesType, Todolist} from "../todolists/api/todolistsApi.types";
 import {todolistsApi} from "../todolists/api/todolistsApi";
 import {RootState} from "../../app/store";
 import {createAppSlice, handleServerAppError, handleServerNetworkError} from "../../common/utils";
@@ -8,6 +7,7 @@ import {setError, setStatus} from "../../app/app-slice";
 import {RequestStatus} from "../../common/types";
 import {ResultCode} from "../../common/enums/enums";
 import {tasksApi} from "../todolists/api/tasksApi";
+import {DomainTaskSchema} from "../todolists/api/tasksApi.types";
 
 
 export const todolistsSlice = createAppSlice({
@@ -35,11 +35,13 @@ export const todolistsSlice = createAppSlice({
 
                     //waiter
                     const res = await todolistsApi.getTodolists()
+                    DomainTodolistSchema.array().parse(res.data)
 
                     thunkAPI.dispatch(setStatus({status: 'succeeded'}))
 
                     return {todolists: res.data}
                 } catch (error) {
+                    handleServerNetworkError(thunkAPI.dispatch, error)
                     return thunkAPI.rejectWithValue(null)
                 }
             },
@@ -56,7 +58,6 @@ export const todolistsSlice = createAppSlice({
              async (args: { id: string, title: string }, {dispatch,rejectWithValue}) => {
                 try {
                     dispatch(setStatus({ status: 'loading' }))
-
                     const res =await todolistsApi.changeTodolist(args)
                     dispatch(setStatus({ status: 'succeeded' }))
                     if (res.data.resultCode === ResultCode.Success) {

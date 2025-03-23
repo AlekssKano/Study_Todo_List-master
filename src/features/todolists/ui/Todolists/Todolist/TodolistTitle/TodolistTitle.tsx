@@ -3,8 +3,8 @@ import {IconButton, Switch} from "@mui/material";
 import DeletedIcon from "@mui/icons-material/Delete";
 import React, {useState} from "react";
 import {useAppDispatch} from "../../../../../../common/hooks";
-import {DomainTodolist} from "../../../../../../app/App";
 import {changeTodolistTitle, deleteTodolist} from "../../../../../model/todolists-slice";
+import {DomainTodolist} from "../../../../api/todolistsApi.types";
 
 
 type Props ={

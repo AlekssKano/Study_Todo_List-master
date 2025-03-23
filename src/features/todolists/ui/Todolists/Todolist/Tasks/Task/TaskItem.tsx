@@ -2,11 +2,11 @@ import {Checkbox, IconButton, ListItem} from "@mui/material";
 import DeletedIcon from "@mui/icons-material/Delete";
 import {EditAbleSpan} from "../../../../../../../common/components/EditAbleSpan/EditAbleSpan";
 import React, {ChangeEvent} from "react";
-import {TasksStateType, DomainTodolist} from "../../../../../../../app/App";
 import {useAppDispatch} from "../../../../../../../common/hooks";
 import { updateTask, deleteTask} from "../../../../../../model/tasks-slice";
 import {DomainTask} from "../../../../../api/tasksApi.types";
 import {Enums} from "../../../../../../../common/enums/enums";
+import {DomainTodolist} from "../../../../../api/todolistsApi.types";
 
 
 type Props ={

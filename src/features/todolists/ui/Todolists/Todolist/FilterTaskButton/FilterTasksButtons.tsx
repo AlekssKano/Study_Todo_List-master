@@ -1,9 +1,9 @@
 import {Button, List} from "@mui/material";
 import AddItemForm from "../../../../../../common/components/AddItemForm/AddItemForm";
 import React from "react";
-import {filterValuesType, DomainTodolist} from "../../../../../../app/App";
 import {useAppDispatch} from "../../../../../../common/hooks";
 import {ChangeTodolistFilterAC} from "../../../../../model/todolists-slice";
+import {DomainTodolist, filterValuesType} from "../../../../api/todolistsApi.types";
 
 type ButtonFilterType= {
     title: string

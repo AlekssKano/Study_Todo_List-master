@@ -16,14 +16,10 @@ import {Todolist} from "../features/todolists/api/todolistsApi.types";
 import {Task} from "../features/todolists/api/tasksApi.types";
 import {RequestStatus} from "../common/types";
 import {ErrorSnackbar} from "../common/components/ErrorSnackBar/ErrorSnackbar";
+import {Routing} from "../common/routing";
 
 
-export type filterValuesType = 'all' | 'active' | 'completed';
 
-export type DomainTodolist = Todolist &{
-    filter: filterValuesType
-    entityStatus: RequestStatus
-}
 
 // export type TasksStateType = {
 //     [todoListID: string]: Array<TaskType>
@@ -42,7 +38,8 @@ const theme = getTheme(themeMode)
             <CssBaseline />
         <div className="App">
             <Header/>
-            <Main/>
+            <Routing/>
+            {/*<Main/>*/}
             <ErrorSnackbar/>
         </div>
         </ThemeProvider>

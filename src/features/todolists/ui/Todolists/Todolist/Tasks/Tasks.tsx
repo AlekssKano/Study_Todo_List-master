@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useEffect} from "react";
 import {Checkbox, IconButton, List, ListItem} from "@mui/material";
-import {DomainTodolist} from "../../../../../../app/App";
 import {useAppDispatch, useAppSelector} from "../../../../../../common/hooks";
 import {fetchTasks, selectTasksS} from "../../../../../model/tasks-slice";
 import {TaskItem } from "./Task/TaskItem";
+import {DomainTodolist} from "../../../../api/todolistsApi.types";
 
 type Props ={
     todolist:DomainTodolist

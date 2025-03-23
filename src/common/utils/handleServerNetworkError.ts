@@ -2,7 +2,8 @@ import {setError, setStatus} from "../../app/app-slice";
 import {Dispatch} from "@reduxjs/toolkit";
 import axios, {AxiosError} from "axios";
 
-export const handleServerNetworkError =(dispatch:Dispatch, error:unknown)=>{
+export const handleServerNetworkError =(dispatch:Dispatch, error:any)=>{
+    console.table(error.issues);
 let errorMessage
 
     if(axios.isAxiosError(error)){

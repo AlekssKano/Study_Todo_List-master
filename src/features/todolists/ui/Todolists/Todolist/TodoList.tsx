@@ -2,12 +2,12 @@ import React, {useRef, useState, KeyboardEvent, ChangeEvent} from "react";
 import {todolistSX} from "../../../../../todolist/Todolist.styles";
 import {Box} from "@mui/material";
 import {TodolistTitle} from "./TodolistTitle/TodolistTitle";
-import {DomainTodolist} from "../../../../../app/App";
 import {Tasks} from "./Tasks/Tasks";
 import {FilterTasksButtons} from "./FilterTaskButton/FilterTasksButtons";
 import AddItemForm from "../../../../../common/components/AddItemForm/AddItemForm";
 import {useAppDispatch} from "../../../../../common/hooks";
 import {createTask} from "../../../../model/tasks-slice";
+import {DomainTodolist} from "../../../api/todolistsApi.types";
 
 type TodoListProps = {
 
