@@ -24,7 +24,7 @@ export const TodolistSchema  = z.object({
 
 export type Todolist = z.infer<typeof TodolistSchema>
 export const DomainTodolistSchema = TodolistSchema.extend({
-  filter: z.enum(["all", "active", "completed"]).optional(),
+  filter: z.enum(["all", "active", "completed"]).optional(), //check IT!
   entityStatus: z.enum(["idle", "loading", "succeeded", "failed"]).optional(),
 });
 
