@@ -1,24 +1,19 @@
-import {Container, Grid2, Paper} from "@mui/material";
+import {Container, Grid2} from "@mui/material";
 import React from "react";
 import AddItemForm from "../common/components/AddItemForm/AddItemForm";
 import {Todolists} from "../features/todolists/ui/Todolists/Todolists";
-import {useAppDispatch, useAppSelector} from "../common/hooks";
-import {nanoid} from "@reduxjs/toolkit";
+import {useAppDispatch} from "../common/hooks";
 import {createTodolist} from "../features/model/todolists-slice";
-import {Navigate} from "react-router-dom";
-import {Path} from "../common/routing/Routing";
-import {selectIsLoggedIn} from "../features/auth/model/authSlice";
+
 
 export const Main = () => {
 
     const dispatch = useAppDispatch();
-    const isLoggedIn=useAppSelector(selectIsLoggedIn)
+    // const isLoggedIn=useAppSelector(selectIsLoggedIn)
     const addTodoList = (title: string) => {
         dispatch(createTodolist(title))
     }
-    if(!isLoggedIn)
-    {    return <Navigate to={Path.Login}/>
-    }
+
     return (
         <Container fixed>
             <Grid2 container sx={{m: '15px', justifyContent: 'center'}}>

@@ -28,9 +28,7 @@ import {useEffect} from "react";
 
 export const Login = () => {
     const themeMode = useAppSelector(selectThemeMode)
-    const isLogginIn = useAppSelector(selectIsLoggedIn)
 const dispatch=useAppDispatch()
-    const navigate = useNavigate();
 
 
     const theme = getTheme(themeMode)
@@ -48,9 +46,6 @@ const dispatch=useAppDispatch()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         dispatch(loginTC(data))
         // reset()
-    }
-    if(isLogginIn)
-    {    return <Navigate to={Path.Main}/>
     }
     // useEffect(() => { //тоже возможнодный вариант
     //     if (isLogginIn) {
