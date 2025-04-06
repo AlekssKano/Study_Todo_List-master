@@ -1,12 +1,11 @@
 import {AppBar, Box, Button, IconButton, Switch, Toolbar} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
-import {amber} from "@mui/material/colors";
 import {getTheme} from "../../theme";
-import {useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {changeThemeModeAC, selectStatus, selectThemeMode} from "../../../app/app-slice";
 import LinearProgress from '@mui/material/LinearProgress'
+import {logoutTC, selectIsLoggedIn} from "../../../features/auth/model/authSlice";
 
 export const Header=()=> {
     const themeMode=useAppSelector(selectThemeMode)
@@ -14,9 +13,15 @@ export const Header=()=> {
     const theme = getTheme(themeMode)
 
     const dispatch = useAppDispatch();
+    const isLogginIn = useAppSelector(selectIsLoggedIn)
+
     //modeSelector
      const ChangeModeSelector =()=>{
         dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
+    }
+
+    const logoutHandler=()=>{
+         dispatch(logoutTC())
     }
 
     return (
@@ -28,7 +33,8 @@ export const Header=()=> {
             <Box>
                 <Switch onChange={ChangeModeSelector}
                 />
-                <Button color="inherit">Login</Button>
+                <Button color="inherit" >Login</Button>
+                {isLogginIn&&<Button color="inherit" onClick={() => logoutHandler()}>Logout</Button>}
                 {/*<Button background={theme.palette.secondary}>Faq</Button>*/}
             </Box>
 

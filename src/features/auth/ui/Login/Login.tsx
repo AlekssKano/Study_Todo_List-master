@@ -7,7 +7,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import Grid from "@mui/material/Grid2"
 import TextField from '@mui/material/TextField'
-import {useAppSelector} from "../../../../common/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../common/hooks";
 import {selectThemeMode} from "../../../../app/app-slice";
 import {getTheme} from "../../../../common/theme";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
@@ -15,7 +15,10 @@ import styles from "./Login.module.css"
 import {Inputs, loginSchema} from "../../lib/schemas";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-
+import {loginTC, selectIsLoggedIn} from "../../model/authSlice";
+import {Navigate, useNavigate} from "react-router-dom";
+import {Path} from '../../../../common/routing/Routing'
+import {useEffect} from "react";
 
 // type _Inputs = { это мы заменяем зодом
 //     email: string
@@ -25,6 +28,10 @@ import {zodResolver} from "@hookform/resolvers/zod";
 
 export const Login = () => {
     const themeMode = useAppSelector(selectThemeMode)
+    const isLogginIn = useAppSelector(selectIsLoggedIn)
+const dispatch=useAppDispatch()
+    const navigate = useNavigate();
+
 
     const theme = getTheme(themeMode)
     const {
@@ -33,13 +40,23 @@ export const Login = () => {
         reset,
         control,
         formState: { errors },
-    } = useForm<Inputs>({     resolver: zodResolver(loginSchema),
+    } = useForm<Inputs>({
+        resolver: zodResolver(loginSchema),
         defaultValues: { email: '', password: '', rememberMe: false } })
 
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data)
-        reset()
+        dispatch(loginTC(data))
+        // reset()
     }
+    if(isLogginIn)
+    {    return <Navigate to={Path.Main}/>
+    }
+    // useEffect(() => { //тоже возможнодный вариант
+    //     if (isLogginIn) {
+    //         navigate(Path.Main);
+    //     }
+    // }, [isLogginIn, navigate]);
 
     return (
         <Grid container justifyContent={'center'}>

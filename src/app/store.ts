@@ -4,6 +4,7 @@ import {todolistsReducer, todolistsSlice} from "../features/model/todolists-slic
 import {appReducer, appSlice} from "./app-slice";
 import {configureStore} from "@reduxjs/toolkit";
 import {createAppSlice} from "../common/utils";
+import {authReducer, authSlice} from "../features/auth/model/authSlice";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -22,6 +23,8 @@ export const store = configureStore({
         [tasksSlice.name]: tasksReducer,
         [todolistsSlice.name]: todolistsReducer,
         [appSlice.name]: appReducer,
+        [authSlice.name]: authReducer,
+
     },
 })
 

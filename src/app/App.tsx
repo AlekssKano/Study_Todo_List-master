@@ -1,8 +1,9 @@
-import React  from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 // import {TaskType} from "../features/todolists/ui/Todolists/Todolist/TodoList";
 
 import {
+    CircularProgress,
     CssBaseline,
     ThemeProvider,
 } from "@mui/material";
@@ -17,7 +18,9 @@ import {Task} from "../features/todolists/api/tasksApi.types";
 import {RequestStatus} from "../common/types";
 import {ErrorSnackbar} from "../common/components/ErrorSnackBar/ErrorSnackbar";
 import {Routing} from "../common/routing";
-
+import {useAppDispatch} from "../common/hooks";
+import {initializeTC} from "../features/auth/model/authSlice";
+import styles from "./App.module.css"
 
 
 
@@ -30,9 +33,24 @@ export type TasksStateType = {
 export {}
 
 function App() {
+
+    const [isInitialized, setIsInitialized] = useState<boolean>(false);
 const themeMode = useSelector(selectThemeMode);
 const theme = getTheme(themeMode)
+const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        dispatch(initializeTC()).finally(()=>{
+            setIsInitialized(true);
+        })
+            });
+
+
+    if(!isInitialized){
+        return <div className={styles.circularProgressContainer}>
+            <CircularProgress size={150} thickness={3} />
+        </div>
+    }
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
