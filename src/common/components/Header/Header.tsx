@@ -22,6 +22,8 @@ export const Header=()=> {
 
     const logoutHandler=()=>{
          dispatch(logoutTC())
+
+
     }
 
     return (

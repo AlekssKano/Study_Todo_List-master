@@ -16,6 +16,7 @@ import {
 import {setError, setStatus} from "../../app/app-slice";
 import {todolistsApi} from "../todolists/api/todolistsApi";
 import {ResultCode} from "../../common/enums/enums";
+import {clearDataAC} from "../../common/actions";
 
 export type TasksState = Record<string, DomainTask[]>
 
@@ -165,6 +166,9 @@ export const tasksSlice = createAppSlice({
         builder.addCase(deleteTodolist.fulfilled, (state, action) => {
             delete state[action.payload.id];
 
+        })
+        builder.addCase(clearDataAC, (state) => {
+            return {}
         })
     },
     selectors: {

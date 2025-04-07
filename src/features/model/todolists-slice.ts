@@ -8,6 +8,7 @@ import {RequestStatus} from "../../common/types";
 import {ResultCode} from "../../common/enums/enums";
 import {tasksApi} from "../todolists/api/tasksApi";
 import {DomainTaskSchema} from "../todolists/api/tasksApi.types";
+import {clearDataAC} from "../../common/actions";
 
 
 export const todolistsSlice = createAppSlice({
@@ -141,6 +142,8 @@ export const todolistsSlice = createAppSlice({
                             return thunkAPI.rejectWithValue(null)
                 }
             },
+
+
             {
                 fulfilled: (state, action) => {
                     const index = state.findIndex((todolist) => todolist.id === action.payload.id)
@@ -153,7 +156,11 @@ export const todolistsSlice = createAppSlice({
 
 
     }),
-
+    extraReducers: (builder) => {
+        builder.addCase(clearDataAC, (state) => {
+            return []
+        })
+    },
     selectors: {
         selectTodolistsS: (state) => state
     }
