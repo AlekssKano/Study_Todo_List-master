@@ -14,7 +14,7 @@ import {
     UpdateTaskModel
 } from "../todolists/api/tasksApi.types";
 import {setError, setStatus} from "../../app/app-slice";
-import {todolistsApi} from "../todolists/api/todolistsApi";
+import {_todolistsApi} from "../todolists/api/todolistsApi";
 import {ResultCode} from "../../common/enums/enums";
 import {clearDataAC} from "../../common/actions";
 

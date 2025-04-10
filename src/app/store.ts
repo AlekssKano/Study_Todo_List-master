@@ -5,6 +5,7 @@ import {appReducer, appSlice} from "./app-slice";
 import {configureStore} from "@reduxjs/toolkit";
 import {createAppSlice} from "../common/utils";
 import {authReducer, authSlice} from "../features/auth/model/authSlice";
+import {todolistsApi} from "../features/todolists/api/todolistsApi";
 
 
 // объединяя reducer-ы с помощью combineReducers,
@@ -24,8 +25,10 @@ export const store = configureStore({
         [todolistsSlice.name]: todolistsReducer,
         [appSlice.name]: appReducer,
         [authSlice.name]: authReducer,
+        [todolistsApi.reducerPath]:todolistsApi.reducer
 
     },
+    middleware:(getDefaultMiddleware) => getDefaultMiddleware().concat(todolistsApi.middleware),
 })
 
 // определить автоматически тип всего объекта состояния
