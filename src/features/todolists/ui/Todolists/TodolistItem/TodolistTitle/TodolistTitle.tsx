@@ -36,7 +36,7 @@ const dispatch = useAppDispatch()
 
   const deleteTodolist = () => {
 changeTodolistStatus("loading")
-    removeTodolist('id')
+    removeTodolist(id)
       .unwrap()
       .catch(()=>{
         changeTodolistStatus("idle")
