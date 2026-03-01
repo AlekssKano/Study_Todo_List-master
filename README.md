@@ -1,10 +1,33 @@
-# Getting Started with Create React AppWithUseState
+Study Todo List (React + TypeScript)
+To-Do приложение с CRUD для списков и задач. Front-end интегрирован с внешним REST API.
 
-This project was bootstrapped with [Create React AppWithUseState](https://github.com/facebook/create-react-app).
+Key features
 
-## Available Scripts
+Create / edit / delete todo lists
 
-In the project directory, you can run:
+Create / update / delete tasks
+
+External REST API integration (GET/POST/PUT/DELETE)
+
+Auth token via localStorage + API key header
+
+Data typing & validation with Zod
+
+UI built with Material UI
+
+Tech stack
+React, TypeScript, Redux Toolkit, RTK Query, Axios, React Router, React Hook Form, Zod, MUI.
+
+How to run
+
+npm install (or yarn)
+
+Create .env based on .env.example
+
+npm start
+
+What I learned
+RTK Query patterns, API integration, typing + validation, structured project architecture.
 
 ### `npm start`
 
